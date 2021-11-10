@@ -1,0 +1,22 @@
+name: regional-rail-equity
+channels:
+  - conda-forge
+dependencies:
+  - python=3.9*
+  - pyproj<3
+  - geopandas<0.9
+  - psycopg2
+  - geoalchemy2
+  - xlrd
+  - xlsxwriter
+  - jupyterlab
+  - python-dotenv
+  - black
+  - flake8
+  - mkdocs-material
+  - mkdocstrings
+  - markdown-include
+  - pip
+  - pip:
+      - pg-data-etl
+      - --editable .
