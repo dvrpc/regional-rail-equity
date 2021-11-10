@@ -59,7 +59,10 @@ def load_single_trip_table(filepath: Path) -> pd.DataFrame:
 
 
 def load_trip_tables(
-    db: Database, table_prefix: str = "existing", subfolder: str = "Trip Tables"
+    db: Database,
+    table_prefix: str = "existing",
+    subfolder: str = "Data/Inputs/Trip Tables",
+    glob_string: str = "2019*.att",
 ) -> None:
     """
     Load all trip tables within a given subfolder.
@@ -69,6 +72,7 @@ def load_trip_tables(
         db (Database): postgresql database for the analysis
         table_prefix (str): the value that will appear before each tablename
         subfolder (str): the folder under GDRIVE_PROJECT_FOLDER that has the files
+        glob_string (str): the regex used by pathlib to find matching filenames
 
     Returns:
         None: but creates a new postgresql table for each text file
@@ -76,7 +80,7 @@ def load_trip_tables(
     """
     trip_table_folder = GDRIVE_PROJECT_FOLDER / subfolder
 
-    files_to_import = trip_table_folder.rglob("*.att")
+    files_to_import = trip_table_folder.rglob(glob_string)
 
     for trip_file in files_to_import:
         sql_tablename = f"{table_prefix}_{trip_file.stem.lower()}"
