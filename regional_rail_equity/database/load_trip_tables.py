@@ -1,5 +1,6 @@
 from pathlib import Path
 import pandas as pd
+from sqlalchemy.types import Float, String
 from pg_data_etl import Database
 
 from regional_rail_equity import db, GDRIVE_PROJECT_FOLDER
@@ -84,7 +85,20 @@ def load_trip_tables(
 
         print("Importing", trip_file.stem)
 
-        db.import_dataframe(df, sql_tablename, df_import_kwargs={"if_exists": "replace"})
+        db.import_dataframe(
+            df,
+            sql_tablename,
+            df_import_kwargs={
+                "if_exists": "replace",
+                "index": False,
+                "dtype": {
+                    "fromzone": String(),
+                    "tozone": String(),
+                    "mat2000": Float(),
+                    "mat2200": Float(),
+                },
+            },
+        )
 
 
 if __name__ == "__main__":
