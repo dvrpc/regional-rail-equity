@@ -1,5 +1,5 @@
 from regional_rail_equity import db
-from regional_rail_equity.zones.zones import CENTER_CITY
+from regional_rail_equity.zones import zones
 
 if __name__ == "__main__":
     query = f"""
@@ -19,7 +19,7 @@ if __name__ == "__main__":
             sum(mat2200) as mat2200sum
         from
             existing_2019_am_hwy_transit_od 
-        where tozone::int in {CENTER_CITY}
+        where tozone::int in {zones.center_city_full.ids}
         group by fromzone
     )
 
