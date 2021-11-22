@@ -1,7 +1,12 @@
+from dataclasses import dataclass
+
+
+@dataclass
 class Zone:
-    def __init__(self, name: str, zone_ids: tuple) -> None:
-        self.name = name
-        self.ids = zone_ids
+    """Class to hold the definition of a set of TAZs that constitute a larger named zone"""
+
+    name: str
+    ids: tuple[int]
 
 
 # fmt: off
