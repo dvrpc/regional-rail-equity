@@ -78,31 +78,40 @@ def load_trip_tables(
         None: but creates a new postgresql table for each text file
 
     """
+
+    print("-------------------------------------------------------------")
+    print("IMPORTING ORIGIN/DESTINATION TABLES FROM TEXT FILES ON GDRIVE")
+
     trip_table_folder = GDRIVE_PROJECT_FOLDER / subfolder
 
     files_to_import = trip_table_folder.rglob(glob_string)
 
+    existing_tables = db.tables()
+
     for trip_file in files_to_import:
         sql_tablename = f"{table_prefix}_{trip_file.stem.lower()}"
 
-        df = load_single_trip_table(trip_file)
+        if f"public.{sql_tablename}" not in existing_tables:
 
-        print("Importing", trip_file.stem)
+            df = load_single_trip_table(trip_file)
 
-        db.import_dataframe(
-            df,
-            sql_tablename,
-            df_import_kwargs={
-                "if_exists": "replace",
-                "index": False,
-                "dtype": {
-                    "fromzone": String(),
-                    "tozone": String(),
-                    "mat2000": Float(),
-                    "mat2200": Float(),
+            print("\t -> Importing", trip_file.stem)
+
+            db.import_dataframe(
+                df,
+                sql_tablename,
+                df_import_kwargs={
+                    "index": False,
+                    "dtype": {
+                        "fromzone": String(),
+                        "tozone": String(),
+                        "mat2000": Float(),
+                        "mat2200": Float(),
+                    },
                 },
-            },
-        )
+            )
+        else:
+            print(f"\t -> The table '{sql_tablename}' already exists in this database. Skipping.")
 
 
 if __name__ == "__main__":
