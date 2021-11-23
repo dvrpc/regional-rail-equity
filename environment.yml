@@ -16,6 +16,7 @@ dependencies:
   - mkdocs-material
   - mkdocstrings
   - markdown-include
+  - pytest
   - pip
   - pip:
       - pg-data-etl
