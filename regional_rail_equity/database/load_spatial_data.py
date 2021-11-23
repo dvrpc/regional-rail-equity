@@ -1,4 +1,5 @@
 from pathlib import Path
+import geopandas as gpd
 from pg_data_etl import Database
 
 from regional_rail_equity import db, GDRIVE_PROJECT_FOLDER
@@ -58,7 +59,15 @@ def import_septa_geojsons(db: Database) -> None:
 
     for dataset in datasets:
         if f"public.{dataset['sql_tablename']}" not in tables_currently_in_database:
-            db.import_gis(**dataset, gpd_kwargs={"index": False})
+            print(f"\t -> Importing '{dataset['sql_tablename']}'")
+            gdf = gpd.read_file(dataset["filepath"])
+            gdf.to_crs(epsg=26918, inplace=True)
+            db.import_geodataframe(
+                gdf,
+                tablename=dataset["sql_tablename"],
+                explode=True,
+                gpd_kwargs={"index": False},
+            )
         else:
             print(
                 f"\t -> The table '{dataset['sql_tablename']}' already exists in this database. Skipping."
