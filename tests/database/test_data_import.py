@@ -19,10 +19,18 @@ ALL_TABLES = [
 
 @pytest.mark.parametrize("tablename", ALL_TABLES)
 def test_table_import(tablename):
+    """
+    Confirm that all of the necessary tables exist
+    inside the database, within the `public` schema
+    """
 
     assert f"public.{tablename}" in db.tables()
 
 
 def test_spatial_table_projections():
-    for tablename, epsg in db.query("select f_table_name, srid from geometry_columns;"):
+    """
+    Confirm that all spatial tables have
+    the proper projection: EPSG 26918
+    """
+    for tablename, epsg in db.query("select f_table_name, srid from geometry_columns"):
         assert epsg == 26918, f"{tablename} has the wrong projection"

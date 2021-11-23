@@ -13,6 +13,12 @@ from regional_rail_equity import db
     ],
 )
 def test_number_of_tazs(tablename):
+    """
+    There are 2,182 traffic analysis zones
+    within the five PA counties inside the
+    DVRPC region. This test confirms
+    that each table has all of the TAZs.
+    """
     query = f"""
         select count(*) from {tablename}
     """
