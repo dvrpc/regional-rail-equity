@@ -9,6 +9,8 @@ ALL_TABLES = [
     "ctpp_poverty_by_household",
     "regional_rail_lines",
     "regional_rail_stations",
+    "dvrpc_counties",
+    "dvrpc_pa_counties",
     "taz_2010",
     "existing_2019_am_hwy_transit_od",
     "existing_2019_md_hwy_transit_od",
