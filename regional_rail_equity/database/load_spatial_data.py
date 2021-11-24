@@ -3,10 +3,12 @@ import geopandas as gpd
 from pg_data_etl import Database
 
 from regional_rail_equity import db, GDRIVE_PROJECT_FOLDER
+from regional_rail_equity.helpers.printout import print_title, print_msg
 
 TAZ_SHAPEFILE = GDRIVE_PROJECT_FOLDER / "Data/Inputs/Zonal Data" / "2010_TAZ.shp"
 
 
+@print_title("IMPORTING SPATIAL ZONE TABLE FROM SHAPEFILE ON GDRIVE")
 def import_zone_shapes(db: Database, filepath: Path = TAZ_SHAPEFILE) -> None:
     """
     Import the 2010 TAZ shapefile into PostGIS
@@ -19,9 +21,6 @@ def import_zone_shapes(db: Database, filepath: Path = TAZ_SHAPEFILE) -> None:
         None: but creates a new spatial table in the database
     """
 
-    print("-----------------------------------------------------")
-    print("IMPORTING SPATIAL ZONE TABLE FROM SHAPEFILE ON GDRIVE")
-
     if "public.taz_2010" not in db.tables(spatial_only=True):
         db.import_gis(
             filepath=filepath,
@@ -30,18 +29,16 @@ def import_zone_shapes(db: Database, filepath: Path = TAZ_SHAPEFILE) -> None:
             gpd_kwargs={"if_exists": "replace"},
         )
     else:
-        print(f"\t -> The table 'taz_2010' already exists in this database. Skipping.")
+        print_msg(f"The table 'taz_2010' already exists in this database. Skipping.", bullet="~~")
 
 
+@print_title("IMPORTING SPATIAL TABLES FROM SEPTA'S OPEN DATA PORTAL")
 def import_septa_geojsons(db: Database) -> None:
     """
     Import geojson data for SEPTA regional rail:
         - Lines: https://septaopendata-septa.opendata.arcgis.com/datasets/SEPTA::septa-regional-rail-lines/about
         - Stations: https://septaopendata-septa.opendata.arcgis.com/datasets/SEPTA::septa-regional-rail-stations/about
     """
-
-    print("------------------------------------------------------")
-    print("IMPORTING SPATIAL TABLES FROM SEPTA'S OPEN DATA PORTAL")
 
     datasets = [
         {
@@ -59,7 +56,7 @@ def import_septa_geojsons(db: Database) -> None:
 
     for dataset in datasets:
         if f"public.{dataset['sql_tablename']}" not in tables_currently_in_database:
-            print(f"\t -> Importing '{dataset['sql_tablename']}'")
+            print_msg(f"Importing '{dataset['sql_tablename']}'")
             gdf = gpd.read_file(dataset["filepath"])
             gdf.to_crs(epsg=26918, inplace=True)
             db.import_geodataframe(
@@ -69,8 +66,9 @@ def import_septa_geojsons(db: Database) -> None:
                 gpd_kwargs={"index": False},
             )
         else:
-            print(
-                f"\t -> The table '{dataset['sql_tablename']}' already exists in this database. Skipping."
+            print_msg(
+                f"The table '{dataset['sql_tablename']}' already exists in this database. Skipping.",
+                bullet="~~",
             )
 
 

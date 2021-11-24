@@ -4,6 +4,7 @@ from sqlalchemy.types import Float, String
 from pg_data_etl import Database
 
 from regional_rail_equity import db, GDRIVE_PROJECT_FOLDER
+from regional_rail_equity.helpers.printout import print_title, print_msg
 
 
 def find_header_row_index(data_list: list) -> int:
@@ -58,6 +59,7 @@ def load_single_trip_table(filepath: Path) -> pd.DataFrame:
     return df
 
 
+@print_title("IMPORTING ORIGIN/DESTINATION TABLES FROM TEXT FILES ON GDRIVE")
 def load_trip_tables(
     db: Database,
     table_prefix: str = "existing",
@@ -79,9 +81,6 @@ def load_trip_tables(
 
     """
 
-    print("-------------------------------------------------------------")
-    print("IMPORTING ORIGIN/DESTINATION TABLES FROM TEXT FILES ON GDRIVE")
-
     trip_table_folder = GDRIVE_PROJECT_FOLDER / subfolder
 
     files_to_import = trip_table_folder.rglob(glob_string)
@@ -95,7 +94,7 @@ def load_trip_tables(
 
             df = load_single_trip_table(trip_file)
 
-            print("\t -> Importing", trip_file.stem)
+            print_msg(f"Importing {trip_file.stem}")
 
             db.import_dataframe(
                 df,
@@ -111,7 +110,10 @@ def load_trip_tables(
                 },
             )
         else:
-            print(f"\t -> The table '{sql_tablename}' already exists in this database. Skipping.")
+            print_msg(
+                f"The table '{sql_tablename}' already exists in this database. Skipping.",
+                bullet="~~",
+            )
 
 
 if __name__ == "__main__":

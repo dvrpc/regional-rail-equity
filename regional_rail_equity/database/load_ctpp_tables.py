@@ -4,7 +4,7 @@ load_ctpp_tables.py
 
 
 """
-from __future__ import annotations
+from __future__ import annotations, print_function
 import geopandas as gpd
 from dataclasses import dataclass
 from pg_data_etl import Database
@@ -13,6 +13,7 @@ from pg_data_etl.database.actions.import_geo_data import import_geodataframe
 from regional_rail_equity import db, GDRIVE_PROJECT_FOLDER
 
 from regional_rail_equity.database.ctpp_config import ctpp_configurations
+from regional_rail_equity.helpers.printout import print_title, print_msg
 
 CTPP_FOLDER = GDRIVE_PROJECT_FOLDER / "Data" / "Inputs" / "CTPP-equity"
 
@@ -60,14 +61,15 @@ class CTPPFile:
         """
 
         if f"public.{self.sql_tablename}" not in db.tables():
-            print(f"\t -> Importing {self.sql_tablename}")
+            print_msg(f"Importing {self.sql_tablename}")
 
             self.load()
             db.import_geodataframe(self.gdf, self.sql_tablename)
         else:
-            print(f"\t -> The table '{self.sql_tablename}' already exists. Skipping.")
+            print_msg(f"The table '{self.sql_tablename}' already exists. Skipping.", bullet="~~")
 
 
+@print_title("IMPORTING CTPP TABLES WITH EQUITY DATA")
 def import_ctpp_tables(db: Database) -> None:
     """
     Import CTPP shapefiles:
@@ -75,9 +77,6 @@ def import_ctpp_tables(db: Database) -> None:
         - EA_A101108 - Race
         - EA_A117200 - Ability to speak English by Language spoken at home
     """
-
-    print("--------------------------------------")
-    print("IMPORTING CTPP TABLES WITH EQUITY DATA")
 
     for kwargs in ctpp_configurations:
         ctpp_file = CTPPFile(**kwargs)
