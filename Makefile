@@ -1,9 +1,10 @@
-.PHONY: data analysis
+.PHONY: data analysis shapefiles test-all
 all:
 	@echo REGIONAL RAIL EQUITY: options include
 	@echo -------------------------------------
 	@echo - data
 	@echo - analysis
+	@echo - shapefiles
 	@echo - test-all
 
 data:
@@ -15,6 +16,9 @@ data:
 
 analysis:
 	python ./regional_rail_equity/zones/queries.py
+
+shapefiles:
+	python ./regional_rail_equity/database/export.py
 
 test-all:
 	pytest .
