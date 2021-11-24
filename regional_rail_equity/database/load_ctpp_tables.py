@@ -13,7 +13,7 @@ from pg_data_etl.database.actions.import_geo_data import import_geodataframe
 from regional_rail_equity import db, GDRIVE_PROJECT_FOLDER
 
 from regional_rail_equity.database.ctpp_config import ctpp_configurations
-from regional_rail_equity.helpers.printout import print_title, print_msg
+from regional_rail_equity.helpers import print_title, print_msg
 
 CTPP_FOLDER = GDRIVE_PROJECT_FOLDER / "Data" / "Inputs" / "CTPP-equity"
 

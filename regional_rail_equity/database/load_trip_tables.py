@@ -4,7 +4,7 @@ from sqlalchemy.types import Float, String
 from pg_data_etl import Database
 
 from regional_rail_equity import db, GDRIVE_PROJECT_FOLDER
-from regional_rail_equity.helpers.printout import print_title, print_msg
+from regional_rail_equity.helpers import print_title, print_msg
 
 
 def find_header_row_index(data_list: list) -> int:

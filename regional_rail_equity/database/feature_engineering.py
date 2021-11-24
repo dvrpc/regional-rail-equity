@@ -1,7 +1,7 @@
 from pg_data_etl import Database
 
 from regional_rail_equity import db
-from regional_rail_equity.helpers.printout import print_title
+from regional_rail_equity.helpers import print_title
 
 ALL_SCHEMAS = ["computed"]
 
