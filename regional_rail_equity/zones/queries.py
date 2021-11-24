@@ -65,6 +65,15 @@ zone_as_origin = f"""
 
 @dataclass
 class Zone:
+    """
+    Class that faciltates the calculation of summary tables
+    for trips to/from a zone, for a given scenario and timeframe
+
+    Usage:
+        myzone = Zone('Center City', db)
+        myzone.compute(scenario_name='existing_2019', timeframe='am', directionality='from')
+
+    """
 
     name: str
     db: Database
@@ -100,6 +109,12 @@ class Zone:
 
 @print_title("COMPUTING ALL COMBINATIONS OF ZONES/SCENARIOS/TIMES/DIRECTIONS")
 def compute_all_combinations(db: Database):
+    """
+    For every zone name in the zones table,
+    compute all combinations of zone, directionality, timeframe, and scenario.
+
+    A new table within the `computed` schema is created for each combination.
+    """
 
     all_zone_names = db.query_as_list_of_singletons("select distinct zone_name from zones")
 

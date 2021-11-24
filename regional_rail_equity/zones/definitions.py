@@ -6,7 +6,13 @@ from regional_rail_equity import db
 
 @dataclass
 class ZoneDefinition:
-    """Class to hold the definition of a set of TAZs that constitute a larger named zone"""
+    """
+    Class that defines a set of TAZs which constitute a larger named zone
+
+    Usage:
+        myzone = ZoneDefinition('The Name', db, (1, 2, 3, 4))
+        myzone.save_to_db()
+    """
 
     name: str
     db: Database
