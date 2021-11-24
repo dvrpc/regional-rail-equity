@@ -32,23 +32,31 @@ def import_zone_shapes(db: Database, filepath: Path = TAZ_SHAPEFILE) -> None:
         print_msg(f"The table 'taz_2010' already exists in this database. Skipping.", bullet="~~")
 
 
-@print_title("IMPORTING SPATIAL TABLES FROM SEPTA'S OPEN DATA PORTAL")
-def import_septa_geojsons(db: Database) -> None:
+@print_title("IMPORTING SPATIAL TABLES FROM OPEN DATA PORTALS")
+def import_geojsons(db: Database) -> None:
     """
-    Import geojson data for SEPTA regional rail:
+    Import geojson data
+
+    From SEPTA's open data portal:
         - Lines: https://septaopendata-septa.opendata.arcgis.com/datasets/SEPTA::septa-regional-rail-lines/about
         - Stations: https://septaopendata-septa.opendata.arcgis.com/datasets/SEPTA::septa-regional-rail-stations/about
+
+    From DVRPC's open data portal:
+        - Counties: https://dvrpc-dvrpcgis.opendata.arcgis.com/datasets/dvrpcgis::greater-philadelphia-region-county-boundaries-polygon/about
     """
 
     datasets = [
         {
             "sql_tablename": "regional_rail_lines",
             "filepath": "https://opendata.arcgis.com/datasets/48b0b600abaa4ca1a1bacf917a31c29a_0.geojson",
-            "explode": True,
         },
         {
             "sql_tablename": "regional_rail_stations",
             "filepath": "https://opendata.arcgis.com/datasets/64eaa4539cf4429095c2c7bf25c629a2_0.geojson",
+        },
+        {
+            "sql_tablename": "dvrpc_counties",
+            "filepath": "https://opendata.arcgis.com/datasets/2461305c955640cb8dac99b5ab8d7666_0.geojson",
         },
     ]
 
@@ -73,5 +81,5 @@ def import_septa_geojsons(db: Database) -> None:
 
 
 if __name__ == "__main__":
-    import_septa_geojsons(db)
+    import_geojsons(db)
     import_zone_shapes(db)
