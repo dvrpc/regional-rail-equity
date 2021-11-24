@@ -1,5 +1,8 @@
 from dataclasses import dataclass
+from pg_data_etl import Database
 
+from regional_rail_equity import db
+from regional_rail_equity.helpers import print_msg, print_title
 
 zone_as_destination = f"""
     with zones_shapes as (
@@ -64,6 +67,7 @@ zone_as_origin = f"""
 class Zone:
 
     name: str
+    db: Database
 
     def name_sql(self) -> str:
         txt = self.name.lower()
@@ -71,21 +75,41 @@ class Zone:
             txt = txt.replace(char, "_")
         return txt
 
-    def compute_table(self, scenario_name: str, timeframe: str, directionality: str = "to") -> None:
-        query_templates = {"to": zone_as_destination, "from": zone_as_origin}
+    def compute(self, scenario_name: str, timeframe: str, directionality: str = "to") -> None:
 
-        query_content = (
-            query_templates[directionality]
-            .replace("NAME_OF_ZONE", self.name)
-            .replace("SCENARIO", scenario_name)
-            .replace("TIMEFRAME", timeframe)
-        )
+        new_tablename = f"computed.{scenario_name}_{timeframe}_{directionality}_{self.name_sql()}"
 
-        query = f"""
-            create table if not exists
-                computed.{scenario_name}_{timeframe}_{directionality}_{self.name_sql()}
-            as (
-                {query_content}
+        if new_tablename in self.db.tables():
+            print_msg(f"This table already exists: '{new_tablename}'", bullet="~~")
+
+        else:
+            print_msg(f"Computing new table: '{new_tablename}'")
+
+            query_templates = {"to": zone_as_destination, "from": zone_as_origin}
+
+            query_content = (
+                query_templates[directionality]
+                .replace("NAME_OF_ZONE", self.name)
+                .replace("SCENARIO", scenario_name)
+                .replace("TIMEFRAME", timeframe)
             )
-        """
-        self.db.execute(query)
+
+            query = f"create table {new_tablename} as ({query_content})"
+            self.db.execute(query)
+
+
+@print_title("COMPUTING ALL COMBINATIONS OF ZONES/SCENARIOS/TIMES/DIRECTIONS")
+def compute_all_combinations(db: Database):
+
+    all_zone_names = db.query_as_list_of_singletons("select distinct zone_name from zones")
+
+    for zone_name in all_zone_names:
+        zone = Zone(zone_name, db)
+        for timeframe in ["am", "md", "pm", "nt"]:
+            for directionality in ["to", "from"]:
+                for scenario in ["existing_2019"]:
+                    zone.compute(scenario, timeframe, directionality)
+
+
+if __name__ == "__main__":
+    compute_all_combinations(db)

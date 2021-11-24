@@ -1,8 +1,9 @@
-.PHONY: data
+.PHONY: data analysis
 all:
 	@echo REGIONAL RAIL EQUITY: options include
 	@echo -------------------------------------
 	@echo - data
+	@echo - analysis
 	@echo - test-all
 
 data:
@@ -11,6 +12,9 @@ data:
 	python ./regional_rail_equity/database/load_ctpp_tables.py
 	python ./regional_rail_equity/database/feature_engineering.py
 	pytest ./tests/database
+
+analysis:
+	python ./regional_rail_equity/zones/queries.py
 
 test-all:
 	pytest .
