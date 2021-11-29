@@ -4,7 +4,7 @@ def print_title(message: str):
     row of dashes, and then the message.
 
     It then runs the function, and prints
-    out a closing row of dashes to visually
+    out a closing row of dots to visually
     group any printed output from the function.
     """
 
@@ -24,4 +24,9 @@ def print_title(message: str):
 
 
 def print_msg(message: str, tabs: int = 1, bullet: str = "->"):
+    """
+    Print a message that is tabbed in and uses a bullet-style prefix
+
+    User may tweak number of tabs and the bullet style
+    """
     print("\t" * tabs, bullet, message)
