@@ -1,2 +1,2 @@
 from .database.db import db
-from .database.env_vars import GDRIVE_PROJECT_FOLDER
+from .database.config.env_vars import GDRIVE_PROJECT_FOLDER
