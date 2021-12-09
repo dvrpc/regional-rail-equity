@@ -88,9 +88,9 @@ def load_trip_tables(
     existing_tables = db.tables()
 
     for trip_file in files_to_import:
-        sql_tablename = f"{table_prefix}_{trip_file.stem.lower()}"
+        sql_tablename = f"data.{table_prefix}_{trip_file.stem.lower()}"
 
-        if f"public.{sql_tablename}" not in existing_tables:
+        if sql_tablename not in existing_tables:
 
             df = load_single_trip_table(trip_file)
 

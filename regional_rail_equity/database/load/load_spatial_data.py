@@ -21,10 +21,11 @@ def import_zone_shapes(db: Database, filepath: Path = TAZ_SHAPEFILE) -> None:
         None: but creates a new spatial table in the database
     """
 
-    if "public.taz_2010" not in db.tables(spatial_only=True):
+    if "data.taz_2010" not in db.tables(spatial_only=True):
+        print_msg(f"Importing 'data.taz_2010'")
         db.import_gis(
             filepath=filepath,
-            sql_tablename="taz_2010",
+            sql_tablename="data.taz_2010",
             explode=True,
             gpd_kwargs={"if_exists": "replace"},
         )
@@ -47,15 +48,15 @@ def import_geojsons(db: Database) -> None:
 
     datasets = [
         {
-            "sql_tablename": "regional_rail_lines",
+            "sql_tablename": "data.regional_rail_lines",
             "filepath": "https://opendata.arcgis.com/datasets/48b0b600abaa4ca1a1bacf917a31c29a_0.geojson",
         },
         {
-            "sql_tablename": "regional_rail_stations",
+            "sql_tablename": "data.regional_rail_stations",
             "filepath": "https://opendata.arcgis.com/datasets/64eaa4539cf4429095c2c7bf25c629a2_0.geojson",
         },
         {
-            "sql_tablename": "dvrpc_counties",
+            "sql_tablename": "data.dvrpc_counties",
             "filepath": "https://opendata.arcgis.com/datasets/2461305c955640cb8dac99b5ab8d7666_0.geojson",
         },
     ]
@@ -63,7 +64,7 @@ def import_geojsons(db: Database) -> None:
     tables_currently_in_database = db.tables(spatial_only=True)
 
     for dataset in datasets:
-        if f"public.{dataset['sql_tablename']}" not in tables_currently_in_database:
+        if f"{dataset['sql_tablename']}" not in tables_currently_in_database:
             print_msg(f"Importing '{dataset['sql_tablename']}'")
             gdf = gpd.read_file(dataset["filepath"])
             gdf.to_crs(epsg=26918, inplace=True)

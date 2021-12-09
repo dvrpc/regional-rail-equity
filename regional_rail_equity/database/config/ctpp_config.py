@@ -1,6 +1,6 @@
 poverty = {
     "filepath": "EA_A113100 - Poverty status (4) (Households for which poverty status is determined)/C13.shp",
-    "sql_tablename": "ctpp_poverty_by_household",
+    "sql_tablename": "data.ctpp_poverty_by_household",
     "names": [
         "ctpp_id",
         "label",
@@ -20,7 +20,7 @@ poverty = {
 
 race = {
     "filepath": "EA_A101108 - Race (5) (All persons)/C13.shp",
-    "sql_tablename": "ctpp_race_all_people",
+    "sql_tablename": "data.ctpp_race_all_people",
     "names": [
         "ctpp_id",
         "label",
@@ -42,7 +42,7 @@ race = {
 
 english = {
     "filepath": "EA_A117200 - Ability to speak English (3) by Language spoken at home (13) (Persons 5 years old and over in households)/C13.shp",
-    "sql_tablename": "ctpp_language_at_home",
+    "sql_tablename": "data.ctpp_language_at_home",
     "names": [
         "ctpp_id",
         "label",
@@ -82,7 +82,7 @@ english = {
 
 mode_of_travel = {
     "filepath": "EA_B102201 - Minority Status (3) by Means of Transportation (11) (Workers 16 years and over)/C13.shp",
-    "sql_tablename": "ctpp_travel_mode",
+    "sql_tablename": "data.ctpp_travel_mode",
     "names": [
         "ctpp_id",
         "label",
