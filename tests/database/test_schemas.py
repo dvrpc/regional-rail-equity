@@ -2,7 +2,7 @@ import pytest
 
 from regional_rail_equity import db
 
-from regional_rail_equity.database.feature_engineering import ALL_SCHEMAS
+from regional_rail_equity.database.load.feature_engineering import ALL_SCHEMAS
 
 
 @pytest.mark.parametrize("schema", ALL_SCHEMAS)
