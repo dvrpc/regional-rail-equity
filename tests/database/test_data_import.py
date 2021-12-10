@@ -3,19 +3,19 @@ import pytest
 from regional_rail_equity import db
 
 ALL_TABLES = [
-    "ctpp_travel_mode",
-    "ctpp_language_at_home",
-    "ctpp_race_all_people",
-    "ctpp_poverty_by_household",
-    "regional_rail_lines",
-    "regional_rail_stations",
-    "dvrpc_counties",
-    "dvrpc_pa_counties",
-    "taz_2010",
-    "existing_2019_am_hwy_transit_od",
-    "existing_2019_md_hwy_transit_od",
-    "existing_2019_pm_hwy_transit_od",
-    "existing_2019_nt_hwy_transit_od",
+    "data.ctpp_travel_mode",
+    "data.ctpp_language_at_home",
+    "data.ctpp_race_all_people",
+    "data.ctpp_poverty_by_household",
+    "data.regional_rail_lines",
+    "data.regional_rail_stations",
+    "data.dvrpc_counties",
+    "data.dvrpc_pa_counties",
+    "data.taz_2010",
+    "data.existing_2019_am_hwy_transit_od",
+    "data.existing_2019_md_hwy_transit_od",
+    "data.existing_2019_pm_hwy_transit_od",
+    "data.existing_2019_nt_hwy_transit_od",
 ]
 
 
@@ -26,7 +26,7 @@ def test_table_import(tablename):
     inside the database, within the `public` schema
     """
 
-    assert f"public.{tablename}" in db.tables()
+    assert tablename in db.tables()
 
 
 def test_spatial_table_projections():

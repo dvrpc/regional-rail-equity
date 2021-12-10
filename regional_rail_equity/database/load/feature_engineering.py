@@ -41,14 +41,14 @@ def summarize_ctpp_data(db: Database):
                 split_part(split_part(name, ',', 1), ' ', 2)::int as taz_id,
                 geom
             from
-                public.ctpp_language_at_home 
+                data.ctpp_language_at_home 
         ),
         english as (
             select name,
                 case when est_total > 0 then
                     (1 - (est_english / est_total)) * 100
                 else null end as pct_non_english
-            from public.ctpp_language_at_home 
+            from data.ctpp_language_at_home 
         )
         select
             s.name, s.taz_id, s.geom,
@@ -74,13 +74,13 @@ def summarize_ctpp_data(db: Database):
 @print_title("EXTRACTING DVRPC PA COUNTIES FROM MULTI-STATE COUNTY LAYER")
 def clip_counties(db: Database):
     query = """
-        select * from dvrpc_counties
+        select * from data.dvrpc_counties
         where
             state_name = 'Pennsylvania'
         and
             dvrpc_reg = 'Yes'
     """
-    db.gis_make_geotable_from_query(query, "dvrpc_pa_counties", "POLYGON", 26918)
+    db.gis_make_geotable_from_query(query, "data.dvrpc_pa_counties", "POLYGON", 26918)
 
 
 if __name__ == "__main__":
