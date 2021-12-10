@@ -11,6 +11,7 @@ data:
 	python ./regional_rail_equity/database/load/load_spatial_data.py
 	python ./regional_rail_equity/database/load/load_trip_tables.py
 	python ./regional_rail_equity/database/load/load_ctpp_tables.py
+	python ./regional_rail_equity/database/load/load_path_legs.py
 	python ./regional_rail_equity/database/load/feature_engineering.py
 	pytest ./tests/database
 
