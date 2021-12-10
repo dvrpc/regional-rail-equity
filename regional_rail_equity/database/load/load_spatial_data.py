@@ -1,15 +1,42 @@
 from pathlib import Path
 import geopandas as gpd
+from dataclasses import dataclass
+from pathlib import Path
 from pg_data_etl import Database
 
 from regional_rail_equity import db, GDRIVE_PROJECT_FOLDER
 from regional_rail_equity.helpers import print_title, print_msg
 
 TAZ_SHAPEFILE = GDRIVE_PROJECT_FOLDER / "Data/Inputs/Zonal Data" / "2010_TAZ.shp"
+TIM_ZONE_SHAPEFILE = GDRIVE_PROJECT_FOLDER / "Data/Inputs/PathLegs" / "TIM_24__zone.SHP"
+
+
+@dataclass
+class ShapefileToImport:
+    filepath: Path
+    sql_tablename: str
+    explode: bool
+    gpd_kwargs: dict
+
+
+shapefiles = [
+    ShapefileToImport(
+        filepath=TAZ_SHAPEFILE,
+        sql_tablename="data.taz_2010",
+        explode=True,
+        gpd_kwargs={"if_exists": "replace"},
+    ),
+    ShapefileToImport(
+        filepath=TIM_ZONE_SHAPEFILE,
+        sql_tablename="data.tim24_zones",
+        explode=True,
+        gpd_kwargs={"if_exists": "replace"},
+    ),
+]
 
 
 @print_title("IMPORTING SPATIAL ZONE TABLE FROM SHAPEFILE ON GDRIVE")
-def import_zone_shapes(db: Database, filepath: Path = TAZ_SHAPEFILE) -> None:
+def import_zone_shapes(db: Database, shapefiles: list[ShapefileToImport] = shapefiles) -> None:
     """
     Import the 2010 TAZ shapefile into PostGIS
 
@@ -21,16 +48,20 @@ def import_zone_shapes(db: Database, filepath: Path = TAZ_SHAPEFILE) -> None:
         None: but creates a new spatial table in the database
     """
 
-    if "data.taz_2010" not in db.tables(spatial_only=True):
-        print_msg(f"Importing 'data.taz_2010'")
-        db.import_gis(
-            filepath=filepath,
-            sql_tablename="data.taz_2010",
-            explode=True,
-            gpd_kwargs={"if_exists": "replace"},
-        )
-    else:
-        print_msg(f"The table 'taz_2010' already exists in this database. Skipping.", bullet="~~")
+    for shp in shapefiles:
+        if shp.sql_tablename not in db.tables(spatial_only=True):
+            print_msg(f"Importing '{shp.sql_tablename}'")
+            db.import_gis(
+                filepath=shp.filepath,
+                sql_tablename=shp.sql_tablename,
+                explode=shp.explode,
+                gpd_kwargs=shp.gpd_kwargs,
+            )
+        else:
+            print_msg(
+                f"The table '{shp.sql_tablename}' already exists in this database. Skipping.",
+                bullet="~~",
+            )
 
 
 @print_title("IMPORTING SPATIAL TABLES FROM OPEN DATA PORTALS")
