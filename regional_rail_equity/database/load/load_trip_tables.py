@@ -26,7 +26,7 @@ def find_header_row_index(data_list: list) -> int:
             return index
 
 
-def load_single_trip_table(filepath: Path) -> pd.DataFrame:
+def load_single_trip_table(filepath: Path, column_names: list) -> pd.DataFrame:
     """
     For a given O/D file:
         - read the data
@@ -55,7 +55,7 @@ def load_single_trip_table(filepath: Path) -> pd.DataFrame:
     ]
 
     # load into pandas dataframe
-    df = pd.DataFrame(data_without_nulls, columns=["fromzone", "tozone", "mat2000", "mat2200"])
+    df = pd.DataFrame(data_without_nulls, columns=column_names)
     return df
 
 
@@ -63,8 +63,9 @@ def load_single_trip_table(filepath: Path) -> pd.DataFrame:
 def load_trip_tables(
     db: Database,
     table_prefix: str = "existing",
-    subfolder: str = "Data/Inputs/Trip Tables",
-    glob_string: str = "2019*.att",
+    subfolder: str = "Data/Inputs/PathLegs",
+    glob_string: str = "*.att",
+    column_names: list = ["fromzone", "tozone", "mat2150", "mat2152"],
 ) -> None:
     """
     Load all trip tables within a given subfolder.
@@ -92,7 +93,7 @@ def load_trip_tables(
 
         if sql_tablename not in existing_tables:
 
-            df = load_single_trip_table(trip_file)
+            df = load_single_trip_table(trip_file, column_names)
 
             print_msg(f"Importing {trip_file.stem}")
 
@@ -102,10 +103,10 @@ def load_trip_tables(
                 df_import_kwargs={
                     "index": False,
                     "dtype": {
-                        "fromzone": String(),
-                        "tozone": String(),
-                        "mat2000": Float(),
-                        "mat2200": Float(),
+                        column_names[0]: String(),
+                        column_names[1]: String(),
+                        column_names[2]: Float(),
+                        column_names[3]: Float(),
                     },
                 },
             )
