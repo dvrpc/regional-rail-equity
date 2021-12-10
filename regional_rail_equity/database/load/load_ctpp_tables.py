@@ -60,7 +60,7 @@ class CTPPFile:
         Load the shapefile and import it into PostGIS
         """
 
-        if {self.sql_tablename} not in db.tables():
+        if self.sql_tablename not in db.tables():
             print_msg(f"Importing {self.sql_tablename}")
 
             self.load()
