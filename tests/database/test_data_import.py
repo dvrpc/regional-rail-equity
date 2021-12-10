@@ -16,6 +16,8 @@ ALL_TABLES = [
     "data.existing_2019_md_hwy_transit_od",
     "data.existing_2019_pm_hwy_transit_od",
     "data.existing_2019_nt_hwy_transit_od",
+    "data.existing_path_legs",
+    "data.existing_od_transit_auto",
 ]
 
 
