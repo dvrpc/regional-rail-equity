@@ -12,12 +12,11 @@ ALL_TABLES = [
     "data.dvrpc_counties",
     "data.dvrpc_pa_counties",
     "data.taz_2010",
-    # "data.existing_2019_am_hwy_transit_od",
-    # "data.existing_2019_md_hwy_transit_od",
-    # "data.existing_2019_pm_hwy_transit_od",
-    # "data.existing_2019_nt_hwy_transit_od",
-    "data.existing_path_legs",
-    "data.existing_od_transit_auto",
+    "public.existing_2019am_rr_to_dest_zone_fullpath",
+    "public.existing_2019am_rr_to_stop_point_transitpath",
+    "public.existing_2019am_home_to_dest_2150",
+    "public.existing_2019am_home_to_station_2152",
+    "public.existing_2019am_home_to_dest_2200",
 ]
 
 
