@@ -1,6 +1,8 @@
+from __future__ import annotations
 from pathlib import Path
 import pandas as pd
 from sqlalchemy.types import Float, String
+from dataclasses import dataclass
 from pg_data_etl import Database
 
 from regional_rail_equity import db, GDRIVE_PROJECT_FOLDER
@@ -14,6 +16,8 @@ def find_header_row_index(data_list: list) -> int:
     This function finds the row index of the actual header,
     which looks like this:
         $ODPAIR:FROMZONENO	TOZONENO	MATVALUE(2000)	MATVALUE(2200)
+    or this:
+        $PUTPATHLEG:ORIGZONENO	DESTZONENO	PATHINDEX	PATHLEGINDEX	ODTRIPS	FROMSTOPPOINTNO	FROMSTOPAREANO	TOSTOPPOINTNO	TOSTOPAREANO	TIMEPROFILEKEYSTRING	TIME	WAITTIME	DIST	LINENAME	FARE(TW)
 
     Arguments:
         data_list (list): data from text file that has been read into memory
@@ -22,11 +26,13 @@ def find_header_row_index(data_list: list) -> int:
         int: the index of the true header row
     """
     for index, row in enumerate(data_list):
-        if "$ODPAIR" in row:
+        if "$ODPAIR" in row or "$PUTPATHLEG" in row:
             return index
 
 
-def load_single_trip_table(filepath: Path, column_names: list) -> pd.DataFrame:
+def load_single_trip_table(
+    filepath: Path, column_names: list, column_idx_with_no_zeros: int = 2
+) -> pd.DataFrame:
     """
     For a given O/D file:
         - read the data
@@ -51,7 +57,9 @@ def load_single_trip_table(filepath: Path, column_names: list) -> pd.DataFrame:
     # drop rows that have zeros in both "MATVALUE" fields
     # FROMZONENO	TOZONENO	MATVALUE(2000)	MATVALUE(2200)
     data_without_nulls = [
-        row for row in data if len(row) == 4 and (float(row[2]) > 0 or float(row[3]) > 0)
+        row
+        for row in data
+        if len(row) == len(column_names) and float(row[column_idx_with_no_zeros]) > 0
     ]
 
     # load into pandas dataframe
@@ -59,17 +67,27 @@ def load_single_trip_table(filepath: Path, column_names: list) -> pd.DataFrame:
     return df
 
 
-@print_title("IMPORTING ORIGIN/DESTINATION TABLES FROM TEXT FILES ON GDRIVE")
-def load_trip_tables(
-    db: Database,
-    table_prefix: str = "existing",
-    subfolder: str = "Data/Inputs/PathLegs",
-    glob_string: str = "*.att",
-    column_names: list = ["fromzone", "tozone", "mat2150", "mat2152"],
-) -> None:
+@dataclass
+class ATTFileImporter:
+    filename: str
+    column_names: list
+    sql_tablename: str
+    dtypes: dict = None
+    column_idx_with_no_zeros: int = 2
+
+    @property
+    def filepath(self):
+        return (
+            GDRIVE_PROJECT_FOLDER / "Data/Inputs/Model Exports for Equity Analysis" / self.filename
+        )
+
+    @property
+    def lowercase_columns(self):
+        return [x.lower() for x in self.column_names]
+
+
+def import_single_table(db: Database, file_to_import: ATTFileImporter) -> None:
     """
-    Load all trip tables within a given subfolder.
-    All '*.att' tables in the folder will be imported with the table_prefix.
 
     Arguments:
         db (Database): postgresql database for the analysis
@@ -81,40 +99,130 @@ def load_trip_tables(
         None: but creates a new postgresql table for each text file
 
     """
-
-    trip_table_folder = GDRIVE_PROJECT_FOLDER / subfolder
-
-    files_to_import = trip_table_folder.rglob(glob_string)
-
     existing_tables = db.tables()
 
-    for trip_file in files_to_import:
-        sql_tablename = f"data.{table_prefix}_{trip_file.stem.lower()}"
+    if file_to_import.sql_tablename not in existing_tables:
+        df = load_single_trip_table(
+            file_to_import.filepath,
+            file_to_import.lowercase_columns,
+            file_to_import.column_idx_with_no_zeros,
+        )
 
-        if sql_tablename not in existing_tables:
+        print_msg(f"Importing {file_to_import.filepath.stem}")
 
-            df = load_single_trip_table(trip_file, column_names)
+        import_kwargs = {"index": False}
 
-            print_msg(f"Importing {trip_file.stem}")
+        if file_to_import.dtypes:
+            import_kwargs["dtype"] = file_to_import.dtypes
 
-            db.import_dataframe(
-                df,
-                sql_tablename,
-                df_import_kwargs={
-                    "index": False,
-                    "dtype": {
-                        column_names[0]: String(),
-                        column_names[1]: String(),
-                        column_names[2]: Float(),
-                        column_names[3]: Float(),
-                    },
-                },
-            )
-        else:
-            print_msg(
-                f"The table '{sql_tablename}' already exists in this database. Skipping.",
-                bullet="~~",
-            )
+        db.import_dataframe(
+            df,
+            file_to_import.sql_tablename,
+            df_import_kwargs=import_kwargs,
+        )
+    else:
+
+        print_msg(
+            f"The table '{file_to_import.sql_tablename}' already exists in this database. Skipping.",
+            bullet="~~",
+        )
+
+
+@print_title("IMPORTING ORIGIN/DESTINATION TABLES FROM TEXT FILES ON GDRIVE")
+def load_trip_tables(db: Database) -> None:
+
+    f1 = ATTFileImporter(
+        filename="2019_AM_from_home_only_Full_Path_RR_Station_to_Destination_Zone.att",
+        sql_tablename="public.existing_2019am_rr_to_dest_zone_fullpath",
+        column_names=[
+            "ORIGZONENO",
+            "DESTZONENO",
+            "PATHINDEX",
+            "PATHLEGINDEX",
+            "ODTRIPS",
+            "FROMSTOPPOINTNO",
+            "FROMSTOPAREANO",
+            "TOSTOPPOINTNO",
+            "TOSTOPAREANO",
+            "TIMEPROFILEKEYSTRING",
+            "TIME",
+            "WAITTIME",
+            "DIST",
+            "LINENAME",
+            "FARETW",
+        ],
+        column_idx_with_no_zeros=4,
+    )
+    f2 = ATTFileImporter(
+        filename="2019_AM_from_home_only_Transit_Path_RR_Station_to_Stop_Point.att",
+        sql_tablename="public.existing_2019am_rr_to_stop_point_transitpath",
+        column_names=[
+            "ORIGZONENO",
+            "DESTZONENO",
+            "PATHINDEX",
+            "PATHLEGINDEX",
+            "ODTRIPS",
+            "FROMSTOPPOINTNO",
+            "FROMSTOPAREANO",
+            "TOSTOPPOINTNO",
+            "TOSTOPAREANO",
+            "TIMEPROFILEKEYSTRING",
+            "TIME",
+            "WAITTIME",
+            "DIST",
+            "LINENAME",
+            "FARETW",
+        ],
+        column_idx_with_no_zeros=4,
+    )
+    f3 = ATTFileImporter(
+        filename="2019_AM_from_home_only_Matrix2150_TrAuto_Home_to_Destination_Zone.att",
+        sql_tablename="public.existing_2019am_home_to_dest_2150",
+        column_names=[
+            "FROMZONENO",
+            "TOZONENO",
+            "MATVALUE2150",
+        ],
+        column_idx_with_no_zeros=2,
+        dtypes={
+            "fromzoneno": String(),
+            "tozoneno": String(),
+            "matvalue2150": Float(),
+        },
+    )
+    f4 = ATTFileImporter(
+        filename="2019_AM_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
+        sql_tablename="public.existing_2019am_home_to_station_2152",
+        column_names=[
+            "FROMZONENO",
+            "TOZONENO",
+            "MATVALUE2152",
+        ],
+        column_idx_with_no_zeros=2,
+        dtypes={
+            "fromzoneno": String(),
+            "tozoneno": String(),
+            "matvalue2152": Float(),
+        },
+    )
+    f5 = ATTFileImporter(
+        filename="2019_AM_from_home_only_Matrix2200_TrTotal_Home_to_Destination_Zone.att",
+        sql_tablename="public.existing_2019am_home_to_dest_2200",
+        column_names=[
+            "FROMZONENO",
+            "TOZONENO",
+            "MATVALUE2200",
+        ],
+        column_idx_with_no_zeros=2,
+        dtypes={
+            "fromzoneno": String(),
+            "tozoneno": String(),
+            "matvalue2200": Float(),
+        },
+    )
+
+    for file_to_import in [f1, f2, f3, f4, f5]:
+        import_single_table(db, file_to_import)
 
 
 if __name__ == "__main__":
