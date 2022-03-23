@@ -3,21 +3,6 @@ from pg_data_etl import Database
 from regional_rail_equity import db
 from regional_rail_equity.helpers import print_title
 
-ALL_SCHEMAS = ["computed", "ctpp"]
-
-
-@print_title("CREATING NEW SCHEMAS")
-def create_schemas(db: Database) -> None:
-    """
-    Create schemas that will be needed later
-
-    Arguments:
-        db (Database): analysis database
-    """
-
-    for schema in ALL_SCHEMAS:
-        db.schema_add(schema)
-
 
 @print_title("GENERATING A SUMMARY OF THE CTPP EQUITY TABLES")
 def summarize_ctpp_data(db: Database):
@@ -71,19 +56,5 @@ def summarize_ctpp_data(db: Database):
     db.execute(query)
 
 
-@print_title("EXTRACTING DVRPC PA COUNTIES FROM MULTI-STATE COUNTY LAYER")
-def clip_counties(db: Database):
-    query = """
-        select * from data.dvrpc_counties
-        where
-            state_name = 'Pennsylvania'
-        and
-            dvrpc_reg = 'Yes'
-    """
-    db.gis_make_geotable_from_query(query, "data.dvrpc_pa_counties", "POLYGON", 26918)
-
-
 if __name__ == "__main__":
-    create_schemas(db)
     summarize_ctpp_data(db)
-    clip_counties(db)
