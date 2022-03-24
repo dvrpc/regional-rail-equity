@@ -18,28 +18,33 @@ poverty = {
     ],
 }
 
-race = {
-    "filepath": "EA_A101108 - Race (5) (All persons)/C13.shp",
-    "sql_tablename": "data.ctpp_race_all_people",
-    "names": [
-        "ctpp_id",
-        "label",
-        "name",
-        "geoid",
-        "est_all_races",
-        "moe_all_races",
-        "est_white_alone",
-        "moe_white_alone",
-        "est_black_alone",
-        "moe_black_alone",
-        "est_asian_alone",
-        "moe_asian_alone",
-        "est_other",
-        "moe_other",
-        "geometry",
-    ],
-}
+# TODO: Minority status
 
+
+# TODO: remove this one below
+# race = {
+#     "filepath": "EA_A101108 - Race (5) (All persons)/C13.shp",
+#     "sql_tablename": "data.ctpp_race_all_people",
+#     "names": [
+#         "ctpp_id",
+#         "label",
+#         "name",
+#         "geoid",
+#         "est_all_races",
+#         "moe_all_races",
+#         "est_white_alone",
+#         "moe_white_alone",
+#         "est_black_alone",
+#         "moe_black_alone",
+#         "est_asian_alone",
+#         "moe_asian_alone",
+#         "est_other",
+#         "moe_other",
+#         "geometry",
+#     ],
+# }
+
+# TODO: modify the columns for this one and add both NJ and PA tables
 english = {
     "filepath": "EA_A117200 - Ability to speak English (3) by Language spoken at home (13) (Persons 5 years old and over in households)/C13.shp",
     "sql_tablename": "data.ctpp_language_at_home",
@@ -80,38 +85,10 @@ english = {
     ],
 }
 
-mode_of_travel = {
-    "filepath": "EA_B102201 - Minority Status (3) by Means of Transportation (11) (Workers 16 years and over)/C13.shp",
-    "sql_tablename": "data.ctpp_travel_mode",
-    "names": [
-        "ctpp_id",
-        "label",
-        "name",
-        "geoid",
-        "est_total",
-        "moe_total",
-        "est_drove_alone",
-        "moe_drove_alone",
-        "est_drove_cp2",
-        "moe_drove_cp2",
-        "est_drove_cp3plus",
-        "moe_drove_cp3plus",
-        "est_bus_trolleybus",
-        "moe_bus_trolleybus",
-        "est_streetcar_trolleybus_subway_elevated",
-        "moe_streetcar_trolleybus_subway_elevated",
-        "est_railroad_ferryboat",
-        "moe_railroad_ferryboat",
-        "est_bike",
-        "moe_bike",
-        "est_walk",
-        "moe_walk",
-        "est_taxi_motorbike_other",
-        "moe_taxi_motorbike_other",
-        "est_wfh",
-        "moe_wfh",
-        "geometry",
-    ],
-}
 
-ctpp_configurations = [poverty, race, english, mode_of_travel]
+# TODO: add vehicles available table for both NJ and PA
+
+ctpp_configurations = [
+    poverty,
+    english,
+]
