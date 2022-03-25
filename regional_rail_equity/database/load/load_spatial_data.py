@@ -38,7 +38,7 @@ shapefiles = [
 @print_title("IMPORTING SPATIAL ZONE TABLE FROM SHAPEFILE ON GDRIVE")
 def import_zone_shapes(db: Database, shapefiles: list[ShapefileToImport] = shapefiles) -> None:
     """
-    Import the 2010 TAZ shapefile into PostGIS
+    Import the 2010 TAZ shapefiles into PostGIS
 
     Arguments:
         db (Database): analysis database
@@ -87,8 +87,8 @@ def import_geojsons(db: Database) -> None:
             "filepath": "https://opendata.arcgis.com/datasets/64eaa4539cf4429095c2c7bf25c629a2_0.geojson",
         },
         {
-            "sql_tablename": "data.dvrpc_counties",
-            "filepath": "https://opendata.arcgis.com/datasets/2461305c955640cb8dac99b5ab8d7666_0.geojson",
+            "sql_tablename": "data.dvrpc_all_counties",
+            "filepath": "https://arcgis.dvrpc.org/portal/rest/services/Boundaries/CountyBoundaries/FeatureServer/0/query?where=1=1&outfields=*&outsr=4326&f=geojson",
         },
     ]
 
