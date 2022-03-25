@@ -5,6 +5,7 @@ all:
 
 census-data:
 	python ./regional_rail_equity/database/load/load_ctpp_tables.py
+	python ./regional_rail_equity/database/feature_engineering/summarize_ctpp.py
 
 spatial-data:
 	python ./regional_rail_equity/database/load/load_spatial_data.py
@@ -13,7 +14,6 @@ model-data:
 	python ./regional_rail_equity/database/load/load_trip_tables.py
 
 data: census-data spatial-data model-data
-	python ./regional_rail_equity/database/load/feature_engineering.py
 	pytest ./tests/database
 
 analysis:
