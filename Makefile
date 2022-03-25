@@ -1,17 +1,19 @@
-.PHONY: data analysis shapefiles test-all
 all:
-	@echo REGIONAL RAIL EQUITY: options include
-	@echo -------------------------------------
-	@echo - data
-	@echo - analysis
-	@echo - shapefiles
-	@echo - test-all
+	@echo REGIONAL RAIL EQUITY
+	@echo --------------------
+	@echo This command line tool handles the import and feature engineering of data needed for the equity analysis of model outputs
 
-data:
-	python ./regional_rail_equity/database/load/load_spatial_data.py
-	python ./regional_rail_equity/database/load/load_trip_tables.py
+census-data:
 	python ./regional_rail_equity/database/load/load_ctpp_tables.py
-	python ./regional_rail_equity/database/load/feature_engineering.py
+	python ./regional_rail_equity/database/feature_engineering/summarize_ctpp.py
+
+spatial-data:
+	python ./regional_rail_equity/database/load/load_spatial_data.py
+
+model-data:
+	python ./regional_rail_equity/database/load/load_trip_tables.py
+
+data: census-data spatial-data model-data
 	pytest ./tests/database
 
 analysis:

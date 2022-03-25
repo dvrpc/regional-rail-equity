@@ -58,6 +58,25 @@ center_city_small = ZoneDefinition("Center City - Vine to South", db, (10, 11, 1
 ALL_ZONES = [center_city_full, center_city_small]
 
 
+def make_geo_view_of_zones(db: Database) -> None:
+    query = f"""
+    CREATE VIEW zone_shapes AS
+        with shapes as (
+            select z.zone_name, z.tazt, g.geom
+            from zones z
+            left join data.taz_2010 g
+            on z.tazt = g.tazt
+        )
+        select
+            zone_name,
+            st_transform(st_union(geom), 4326) as geom
+        from shapes
+        group by zone_name
+    """
+    db.execute(query)
+
 if __name__ == "__main__":
-    for zone in ALL_ZONES:
-        zone.save_to_db()
+    # for zone in ALL_ZONES:
+    #     zone.save_to_db()
+
+    make_geo_view_of_zones(db)
