@@ -7,6 +7,7 @@ from pg_data_etl import Database
 
 from regional_rail_equity import db, GDRIVE_PROJECT_FOLDER
 from regional_rail_equity.helpers import print_title, print_msg
+from regional_rail_equity.database.config.path_legs_config import path_legs_config
 
 
 def find_header_row_index(data_list: list) -> int:
@@ -131,97 +132,7 @@ def import_single_table(db: Database, file_to_import: ATTFileImporter) -> None:
 @print_title("IMPORTING ORIGIN/DESTINATION TABLES FROM TEXT FILES ON GDRIVE")
 def load_trip_tables(db: Database) -> None:
 
-    f1 = ATTFileImporter(
-        filename="2019_AM_from_home_only_Full_Path_RR_Station_to_Destination_Zone.att",
-        sql_tablename="public.existing_2019am_rr_to_dest_zone_fullpath",
-        column_names=[
-            "ORIGZONENO",
-            "DESTZONENO",
-            "PATHINDEX",
-            "PATHLEGINDEX",
-            "ODTRIPS",
-            "FROMSTOPPOINTNO",
-            "FROMSTOPAREANO",
-            "TOSTOPPOINTNO",
-            "TOSTOPAREANO",
-            "TIMEPROFILEKEYSTRING",
-            "TIME",
-            "WAITTIME",
-            "DIST",
-            "LINENAME",
-            "FARETW",
-        ],
-        column_idx_with_no_zeros=4,
-    )
-    f2 = ATTFileImporter(
-        filename="2019_AM_from_home_only_Transit_Path_RR_Station_to_Stop_Point.att",
-        sql_tablename="public.existing_2019am_rr_to_stop_point_transitpath",
-        column_names=[
-            "ORIGZONENO",
-            "DESTZONENO",
-            "PATHINDEX",
-            "PATHLEGINDEX",
-            "ODTRIPS",
-            "FROMSTOPPOINTNO",
-            "FROMSTOPAREANO",
-            "TOSTOPPOINTNO",
-            "TOSTOPAREANO",
-            "TIMEPROFILEKEYSTRING",
-            "TIME",
-            "WAITTIME",
-            "DIST",
-            "LINENAME",
-            "FARETW",
-        ],
-        column_idx_with_no_zeros=4,
-    )
-    f3 = ATTFileImporter(
-        filename="2019_AM_from_home_only_Matrix2150_TrAuto_Home_to_Destination_Zone.att",
-        sql_tablename="public.existing_2019am_home_to_dest_2150",
-        column_names=[
-            "FROMZONENO",
-            "TOZONENO",
-            "MATVALUE2150",
-        ],
-        column_idx_with_no_zeros=2,
-        dtypes={
-            "fromzoneno": String(),
-            "tozoneno": String(),
-            "matvalue2150": Float(),
-        },
-    )
-    f4 = ATTFileImporter(
-        filename="2019_AM_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
-        sql_tablename="public.existing_2019am_home_to_station_2152",
-        column_names=[
-            "FROMZONENO",
-            "TOZONENO",
-            "MATVALUE2152",
-        ],
-        column_idx_with_no_zeros=2,
-        dtypes={
-            "fromzoneno": String(),
-            "tozoneno": String(),
-            "matvalue2152": Float(),
-        },
-    )
-    f5 = ATTFileImporter(
-        filename="2019_AM_from_home_only_Matrix2200_TrTotal_Home_to_Destination_Zone.att",
-        sql_tablename="public.existing_2019am_home_to_dest_2200",
-        column_names=[
-            "FROMZONENO",
-            "TOZONENO",
-            "MATVALUE2200",
-        ],
-        column_idx_with_no_zeros=2,
-        dtypes={
-            "fromzoneno": String(),
-            "tozoneno": String(),
-            "matvalue2200": Float(),
-        },
-    )
-
-    for file_to_import in [f1, f2, f3, f4, f5]:
+    for file_to_import in [ATTFileImporter(**config) for config in path_legs_config]:
         import_single_table(db, file_to_import)
 
 
