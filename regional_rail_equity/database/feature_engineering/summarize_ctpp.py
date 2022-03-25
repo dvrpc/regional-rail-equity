@@ -4,6 +4,10 @@ from regional_rail_equity import db
 from regional_rail_equity.helpers import print_title
 
 
+# TODO: for the datasets that were downloaded separately for NJ and PA,
+##      merge them together into a singular table that has both states combined
+
+
 @print_title("GENERATING A SUMMARY OF THE CTPP EQUITY TABLES")
 def summarize_ctpp_data(db: Database):
     """
