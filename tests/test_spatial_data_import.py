@@ -3,20 +3,12 @@ import pytest
 from regional_rail_equity import db
 
 ALL_TABLES = [
-    "data.ctpp_travel_mode",
-    "data.ctpp_language_at_home",
-    "data.ctpp_race_all_people",
-    "data.ctpp_poverty_by_household",
     "data.regional_rail_lines",
     "data.regional_rail_stations",
     "data.dvrpc_counties",
-    "data.dvrpc_pa_counties",
+    "data.dvrpc_all_counties",
     "data.taz_2010",
-    "public.existing_2019am_rr_to_dest_zone_fullpath",
-    "public.existing_2019am_rr_to_stop_point_transitpath",
-    "public.existing_2019am_home_to_dest_2150",
-    "public.existing_2019am_home_to_station_2152",
-    "public.existing_2019am_home_to_dest_2200",
+    "data.tim24_zones",
 ]
 
 
