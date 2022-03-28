@@ -48,11 +48,23 @@ class CTPPFile:
 
     def filter_gdf_to_region(self):
         """
-        Filter the geodataframe to only contain counties in the PA-side of the DVRPC region
+        Filter the geodataframe to only contain counties in the DVRPC region
         """
-        counties = ["Philadelphia", "Bucks", "Chester", "Montgomery", "Delaware"]
+        counties = {
+            "Philadelphia": "PA",
+            "Bucks": "PA",
+            "Chester": "PA",
+            "Montgomery": "PA",
+            "Delaware": "PA",
+            "Mercer": "NJ",
+            "Burlington": "NJ",
+            "Gloucester": "NJ",
+            "Camden": "NJ",
+        }
         self.gdf = self.gdf[
-            self.gdf["name"].str.contains("|".join([f"{x} County" for x in counties]))
+            self.gdf["name"].str.contains(
+                "|".join([f"{x} County, {counties.get(x)}" for x in counties])
+            )
         ]
 
     def import_to_database(self, db: Database):
@@ -66,7 +78,10 @@ class CTPPFile:
             self.load()
             db.import_geodataframe(self.gdf, self.sql_tablename)
         else:
-            print_msg(f"The table '{self.sql_tablename}' already exists. Skipping.", bullet="~~")
+            print_msg(
+                f"The table '{self.sql_tablename}' already exists. Skipping.",
+                bullet="~~",
+            )
 
 
 @print_title("IMPORTING CTPP TABLES WITH EQUITY DATA")
