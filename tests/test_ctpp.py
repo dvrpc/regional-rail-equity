@@ -6,7 +6,7 @@ from regional_rail_equity.database.config.ctpp_config import ctpp_configurations
 
 @pytest.mark.parametrize(
     "tablename",
-    [config["sql_tablename"] for config in ctpp_configurations],
+    [config["sql_tablename"] for config in ctpp_configurations] + ["ctpp.summary"],
 )
 def test_number_of_tazs(tablename):
     """
