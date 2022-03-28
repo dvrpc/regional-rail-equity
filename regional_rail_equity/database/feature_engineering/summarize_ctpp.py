@@ -30,7 +30,7 @@ def summarize_ctpp_data(db: Database):
                 split_part(split_part(name, ',', 1), ' ', 2)::int as taz_id,
                 geom
             from
-                data.pa_language_at_home 
+                data.ctpp_poverty_by_household 
         ),
         pa_english as (
             select name,
@@ -110,9 +110,7 @@ def summarize_ctpp_data(db: Database):
             bucket_pct_non_english > 5;
     """
 
-    db.gis_make_geotable_from_query(
-        query_for_new_table, "ctpp.summary", "POLYGON", 26918
-    )
+    db.gis_make_geotable_from_query(query_for_new_table, "ctpp.summary", "POLYGON", 26918)
     db.execute(query)
 
 
