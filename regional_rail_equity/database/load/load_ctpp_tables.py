@@ -51,15 +51,15 @@ class CTPPFile:
         Filter the geodataframe to only contain counties in the DVRPC region
         """
         counties = {
-            "Philadelphia": "PA",
-            "Bucks": "PA",
-            "Chester": "PA",
-            "Montgomery": "PA",
-            "Delaware": "PA",
-            "Mercer": "NJ",
-            "Burlington": "NJ",
-            "Gloucester": "NJ",
-            "Camden": "NJ",
+            "Philadelphia": "Pennsylvania",
+            "Bucks": "Pennsylvania",
+            "Chester": "Pennsylvania",
+            "Montgomery": "Pennsylvania",
+            "Delaware": "Pennsylvania",
+            "Mercer": "New Jersey",
+            "Burlington": "New Jersey",
+            "Gloucester": "New Jersey",
+            "Camden": "New Jersey",
         }
         self.gdf = self.gdf[
             self.gdf["name"].str.contains(
