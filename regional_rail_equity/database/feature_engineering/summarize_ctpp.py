@@ -47,12 +47,9 @@ def summarize_ctpp_data(db: Database):
             from data.nj_language_at_home 
         ),
         english as (
-            select 
-            coalesce(pa_english.name, nj_english.name) as name,
-            coalesce(pa_english.pct_non_english, nj_english.pct_non_english) as pct_non_english 
-            from pa_english 
-            full outer join nj_english 
-            on pa_english.name = nj_english.name
+            select * from pa_english
+            union
+            select * from nj_english
         ),
         poverty as (
             select name,
@@ -76,12 +73,9 @@ def summarize_ctpp_data(db: Database):
             from data.nj_vehicles_available 
         ),
         nonmotorized as (
-            select 
-            coalesce(pa_nonmotorized.name, nj_nonmotorized.name) as name,
-            coalesce(pa_nonmotorized.nonmotorized, nj_nonmotorized.nonmotorized) as nonmotorized  
-            from pa_nonmotorized 
-            full outer join nj_nonmotorized  
-            on pa_nonmotorized.name = nj_nonmotorized.name
+            select * from pa_nonmotorized
+            union
+            select * from nj_nonmotorized
         ),
         nonwhite as (
             select name,
