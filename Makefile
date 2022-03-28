@@ -10,6 +10,7 @@ db-setup:
 census-data:
 	python ./regional_rail_equity/database/load/load_ctpp_tables.py
 	python ./regional_rail_equity/database/feature_engineering/summarize_ctpp.py
+	pytest tests/test_ctpp.py 
 
 spatial-data:
 	python ./regional_rail_equity/database/load/load_spatial_data.py
