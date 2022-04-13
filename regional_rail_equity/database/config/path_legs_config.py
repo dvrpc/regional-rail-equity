@@ -3,6 +3,8 @@ This file contains the configurations necessary to import all '.att' files
 for the path leg model outputs
 """
 
+from sqlalchemy.types import String, Float
+
 cols_2019 = [
     "ORIGZONENO",
     "DESTZONENO",
@@ -29,6 +31,12 @@ year2019am = {
     "sql_tablename": "public.existing_2019am_home_to_dest_zone_fullpath",
     "column_idx_with_no_zeros": 4,
     "column_names": cols_2019,
+    "dtypes": {
+        "origzoneno": String(),
+        "odtrips": Float(),
+        "minutes": Float(),
+        "faretw": Float(),
+    },
 }
 
 year2045am_nobuild = {
@@ -60,10 +68,10 @@ year2045nt_nobuild = {
 
 path_legs_config = [
     year2019am,
-    year2045am_nobuild,
-    year2045md_nobuild,
-    year2045pm_nobuild,
-    year2045nt_nobuild,
+    # year2045am_nobuild,
+    # year2045md_nobuild,
+    # year2045pm_nobuild,
+    # year2045nt_nobuild,
 ]
 
 
