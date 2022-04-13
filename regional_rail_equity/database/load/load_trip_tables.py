@@ -84,6 +84,9 @@ def load_single_trip_table(
     # load into pandas dataframe
     df = pd.DataFrame(data_without_nulls, columns=column_names)
 
+    # Omit any rows where 'pathlegindex' is not '0'
+    df = df[df["pathlegindex"] == "0"]
+
     # Parse time values from text into number of minutes
     df["minutes"] = df.apply(parse_time, axis=1)
 
