@@ -10,6 +10,24 @@ from regional_rail_equity.helpers import print_title, print_msg
 from regional_rail_equity.database.config.path_legs_config import path_legs_config
 
 
+def parse_time(row) -> float:
+    """
+    Transform text-based time values into a number of minutes.
+    e.g. '1h 15min 30s' -> 75.5
+    """
+    parts = row["time"].split(" ")
+    minutes = 0.0
+    for p in parts:
+        if "h" in p:
+            minutes += int(p.replace("h", "")) * 60
+        elif "min" in p:
+            minutes += int(p.replace("min", ""))
+        elif "s" in p:
+            minutes += int(p.replace("s", "")) / 60
+
+    return minutes
+
+
 def find_header_row_index(data_list: list) -> int:
     """
     Model outputs have roughly 12 rows of front-matter before the data starts.
@@ -65,6 +83,10 @@ def load_single_trip_table(
 
     # load into pandas dataframe
     df = pd.DataFrame(data_without_nulls, columns=column_names)
+
+    # Parse time values from text into number of minutes
+    df["minutes"] = df.apply(parse_time, axis=1)
+
     return df
 
 
