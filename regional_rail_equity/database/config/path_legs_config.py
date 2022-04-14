@@ -37,6 +37,7 @@ year2019am = {
         "minutes": Float(),
         "faretw": Float(),
     },
+    "summary_tabname": "existing_2019am",
 }
 
 year2045am_nobuild = {
