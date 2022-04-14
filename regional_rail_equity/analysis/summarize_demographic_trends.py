@@ -1,7 +1,9 @@
 import pandas as pd
 from functools import reduce
+from datetime import datetime
 
 from regional_rail_equity import db
+from regional_rail_equity.database.config.env_vars import GDRIVE_PROJECT_FOLDER
 from regional_rail_equity.database.config.path_legs_config import path_legs_config
 
 summary_tables = [
@@ -47,34 +49,38 @@ fare_query = travel_time_query.replace("weighted_avg_time", "weighted_avg_fare")
     "BUCKET_NAME_time", "BUCKET_NAME_fare"
 )
 
+if __name__ == "__main__":
+    # Run all queries for all tables
+    tabs = []
 
-# Run all queries for all tables, and write to Excel tab
+    for table in path_legs_config:
+        dfs = []
+        computed_tablename = table["sql_tablename"].replace("public.", "computed.summary_of_")
 
-tabs = []
+        for query_template in [total_trips_query, travel_time_query, fare_query]:
+            for demo_col in demographic_columns:
+                # Make the query by dropping in the data tablename and the demographic bucket to use
+                query = query_template.replace("SUMMARY_TABLE", computed_tablename).replace(
+                    "BUCKET_NAME", demo_col
+                )
+                # Run the query and save it to the list
+                df = db.df(query)
+                dfs.append(df)
 
-for table in path_legs_config:
-    computed_tablename = table["sql_tablename"].replace("public.", "computed.summary_of_")
+        # Merge all 12 query outputs into a single summary table
+        merged_df = reduce(lambda x, y: pd.merge(x, y, on="bucket", how="outer"), dfs).sort_values(
+            by=["bucket"]
+        )
 
-    dfs = []
-    for query_template in [total_trips_query, travel_time_query, fare_query]:
-        for demo_col in demographic_columns:
-            query = query_template.replace("SUMMARY_TABLE", computed_tablename).replace(
-                "BUCKET_NAME", demo_col
-            )
-            df = db.df(query)
-            dfs.append(df)
+        tabs.append(
+            {
+                "sheetname": table["summary_tabname"],
+                "df": merged_df,
+            }
+        )
 
-    merged_df = reduce(lambda x, y: pd.merge(x, y, on="bucket", how="outer"), dfs).sort_values(
-        by=["bucket"]
-    )
-
-    tabs.append(
-        {
-            "sheetname": table["summary_tabname"],
-            "df": merged_df,
-        }
-    )
-
-with pd.ExcelWriter("./result.xlsx") as writer:
-    for tab in tabs:
-        tab["df"].to_excel(writer, sheet_name=tab["sheetname"])
+    # Write output to Excel file and save to Google Drive
+    output_excel_filepath = GDRIVE_PROJECT_FOLDER / f"Equity Analysis output {datetime.now()}.xlsx"
+    with pd.ExcelWriter(output_excel_filepath) as writer:
+        for tab in tabs:
+            tab["df"].to_excel(writer, sheet_name=tab["sheetname"])
