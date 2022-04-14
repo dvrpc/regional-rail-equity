@@ -15,6 +15,9 @@ def parse_time(row) -> float:
     Transform text-based time values into a number of minutes.
     e.g. '1h 15min 30s' -> 75.5
     """
+    if "time" not in row:
+        return None
+
     parts = row["time"].split(" ")
     minutes = 0.0
     for p in parts:
@@ -98,8 +101,9 @@ class ATTFileImporter:
     filename: str
     column_names: list
     sql_tablename: str
-    dtypes: dict = None
     column_idx_with_no_zeros: int = 2
+    dtypes: dict = None
+    summary_tabname: str = None
 
     @property
     def filepath(self):
