@@ -24,8 +24,9 @@ model-data:
 data: db-setup census-data spatial-data model-data
 	pytest ./tests/database
 
-# analysis:
-# 	python ./regional_rail_equity/zones/queries.py
+analysis:
+	python ./regional_rail_equity/analysis/summarize_trip_origins.py
+	python ./regional_rail_equity/analysis/summarize_demographic_trends.py
 
 # shapefiles:
 # 	python ./regional_rail_equity/database/export.py
