@@ -15,6 +15,8 @@ from regional_rail_equity import db
 from regional_rail_equity.database.config.path_legs_config import path_legs_config
 
 query_template = """
+    drop table if exists NEW_TABLENAME;
+
     create table NEW_TABLENAME as
 
     with trip_data as (
@@ -24,6 +26,7 @@ query_template = """
             sum(minutes * odtrips) / sum(odtrips) as weighted_avg_time,
             sum(faretw * odtrips) / sum(odtrips) as weighted_avg_fare
         from TABLENAME_PLACEHOLDER
+        where origzoneno::int < 90000
         group by origzoneno 
     )
     select d.*, s.* 
