@@ -4,10 +4,6 @@ from regional_rail_equity import db
 from regional_rail_equity.helpers import print_title
 
 
-# TODO: for the datasets that were downloaded separately for NJ and PA,
-##      merge them together into a singular table that has both states combined
-
-
 @print_title("GENERATING A SUMMARY OF THE CTPP EQUITY TABLES")
 def summarize_ctpp_data(db: Database):
     """
@@ -101,17 +97,24 @@ def summarize_ctpp_data(db: Database):
         full outer join nonwhite nw on s.name = nw.name;
     """
 
-    query = f"""
-        update
-            ctpp.summary
-        set
-            bucket_pct_non_english = 5
-        where
-            bucket_pct_non_english > 5;
-    """
-
     db.gis_make_geotable_from_query(query_for_new_table, "ctpp.summary", "POLYGON", 26918)
-    db.execute(query)
+
+    bucket_columns = [
+        "bucket_nonwhite",
+        "bucket_pct_non_english",
+        "bucket_non_motorized",
+        "bucket_below_100pct_poverty",
+    ]
+
+    for col in bucket_columns:
+
+        query = f"""
+            update ctpp.summary
+            set {col} = 10
+            where {col} > 10;
+        """
+
+        db.execute(query)
 
 
 if __name__ == "__main__":
