@@ -8,8 +8,6 @@ summary_tables = [
     table["sql_tablename"].replace("public.", "computed.summary_of_") for table in path_legs_config
 ]
 
-table = summary_tables[0]
-
 
 demographic_columns = [
     "bucket_nonwhite",
@@ -50,15 +48,33 @@ fare_query = travel_time_query.replace("weighted_avg_time", "weighted_avg_fare")
 )
 
 
-dfs = []
-for query_template in [total_trips_query, travel_time_query, fare_query]:
-    for demo_col in demographic_columns:
-        query = query_template.replace("SUMMARY_TABLE", table).replace("BUCKET_NAME", demo_col)
-        df = db.df(query)
+# Run all queries for all tables, and write to Excel tab
 
-        dfs.append(df)
+tabs = []
 
+for table in path_legs_config:
+    computed_tablename = table["sql_tablename"].replace("public.", "computed.summary_of_")
 
-merged_df = reduce(lambda x, y: pd.merge(x, y, on="bucket", how="outer"), dfs).sort_values(
-    by=["bucket"]
-)
+    dfs = []
+    for query_template in [total_trips_query, travel_time_query, fare_query]:
+        for demo_col in demographic_columns:
+            query = query_template.replace("SUMMARY_TABLE", computed_tablename).replace(
+                "BUCKET_NAME", demo_col
+            )
+            df = db.df(query)
+            dfs.append(df)
+
+    merged_df = reduce(lambda x, y: pd.merge(x, y, on="bucket", how="outer"), dfs).sort_values(
+        by=["bucket"]
+    )
+
+    tabs.append(
+        {
+            "sheetname": table["summary_tabname"],
+            "df": merged_df,
+        }
+    )
+
+with pd.ExcelWriter("./result.xlsx") as writer:
+    for tab in tabs:
+        tab["df"].to_excel(writer, sheet_name=tab["sheetname"])
