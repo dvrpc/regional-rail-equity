@@ -9,6 +9,7 @@ dependencies:
   - geoalchemy2
   - xlrd
   - xlsxwriter
+  - openpyxl
   - jupyterlab
   - python-dotenv
   - black
