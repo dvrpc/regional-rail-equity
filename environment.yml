@@ -14,6 +14,7 @@ dependencies:
   - python-dotenv
   - black
   - flake8
+  - tqdm
   - mkdocs-material
   - mkdocstrings
   - markdown-include
