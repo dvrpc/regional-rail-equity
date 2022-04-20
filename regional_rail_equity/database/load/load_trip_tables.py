@@ -7,7 +7,7 @@ from pg_data_etl import Database
 
 from regional_rail_equity import db, GDRIVE_PROJECT_FOLDER
 from regional_rail_equity.helpers import print_title, print_msg
-from regional_rail_equity.database.config.path_legs_config import path_legs_config
+from regional_rail_equity.database.config.path_legs_config import path_legs_config, mat2152_config
 
 
 def parse_time(row) -> float:
@@ -87,11 +87,13 @@ def load_single_trip_table(
     # load into pandas dataframe
     df = pd.DataFrame(data_without_nulls, columns=column_names)
 
-    # Omit any rows where 'pathlegindex' is not '0'
-    df = df[df["pathlegindex"] == "0"]
+    # If there is a 'pathlegindex' column , omit any rows where 'pathlegindex' is not '0'
+    if "pathlegindex" in df.columns:
+        df = df[df["pathlegindex"] == "0"]
 
-    # Parse time values from text into number of minutes
-    df["minutes"] = df.apply(parse_time, axis=1)
+    # If there is a 'time' column, parse time values from text into number of minutes
+    if "time" in df.columns:
+        df["minutes"] = df.apply(parse_time, axis=1)
 
     return df
 
@@ -161,7 +163,9 @@ def import_single_table(db: Database, file_to_import: ATTFileImporter) -> None:
 @print_title("IMPORTING ORIGIN/DESTINATION TABLES FROM TEXT FILES ON GDRIVE")
 def load_trip_tables(db: Database) -> None:
 
-    for file_to_import in [ATTFileImporter(**config) for config in path_legs_config]:
+    files_to_import = path_legs_config + mat2152_config
+
+    for file_to_import in [ATTFileImporter(**config) for config in files_to_import]:
         import_single_table(db, file_to_import)
 
 
