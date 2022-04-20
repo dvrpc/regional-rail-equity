@@ -21,6 +21,9 @@ model-data:
 	python ./regional_rail_equity/database/load/load_trip_tables.py
 	pytest tests/test_model_import.py 
 
+station-data:
+	python ./regional_rail_equity/database/load/load_station_summary_tables.py
+
 data: db-setup census-data spatial-data model-data
 	pytest ./tests/database
 

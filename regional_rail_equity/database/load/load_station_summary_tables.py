@@ -9,14 +9,20 @@ TOD_FOLDER = GDRIVE_PROJECT_FOLDER / "Data/Inputs/TOD Station Summaries"
 @print_title("Importing station GIS data from 'Building on our Strengths' project")
 def import_gis():
     """
-    Import the shapefile containing TOD analysis results 
+    Import the shapefile containing TOD analysis results
     for the Philly area rail stations from the
     'Building on our Strengths' report
     """
-    shp_filepath = TOD_FOLDER / "TOD_Opportunities/TOD_Opportunities.shp"
     db.import_gis(
-        filepath=shp_filepath,
+        filepath=TOD_FOLDER / "TOD_Opportunities/TOD_Opportunities.shp",
         sql_tablename="building_on_our_strengths_stations",
+        gpd_kwargs={"if_exists": "replace"},
+    )
+
+    db.import_gis(
+        filepath=TOD_FOLDER
+        / "Regional_Rail_Stations_stoppoint/Regional_Rail_Stations_stoppoint.SHP",
+        sql_tablename="model_rr_station_stoppoints",
         gpd_kwargs={"if_exists": "replace"},
     )
 
