@@ -3,22 +3,18 @@ channels:
   - conda-forge
 dependencies:
   - python=3.9*
-  - pyproj<3
-  - geopandas<0.9
+  - pyproj
+  - geopandas
   - psycopg2
   - geoalchemy2
   - xlrd
   - xlsxwriter
   - openpyxl
-  - jupyterlab
   - python-dotenv
   - black
   - flake8
-  - tqdm
-  - mkdocs-material
-  - mkdocstrings
-  - markdown-include
   - pytest
+  - rich
   - pip
   - pip:
       - pg-data-etl
