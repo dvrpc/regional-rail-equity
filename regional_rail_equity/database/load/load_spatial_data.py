@@ -8,7 +8,7 @@ from regional_rail_equity import db, GDRIVE_PROJECT_FOLDER
 from regional_rail_equity.helpers import print_title, print_msg
 
 TAZ_SHAPEFILE = GDRIVE_PROJECT_FOLDER / "Data/Inputs/Zonal Data" / "2010_TAZ.shp"
-TIM_ZONE_SHAPEFILE = GDRIVE_PROJECT_FOLDER / "Data/Inputs/PathLegs" / "TIM_24__zone.SHP"
+TIM_ZONE_SHAPEFILE = GDRIVE_PROJECT_FOLDER / "Data/Inputs/Zonal Data" / "TIM_24__zone.SHP"
 
 
 @dataclass
