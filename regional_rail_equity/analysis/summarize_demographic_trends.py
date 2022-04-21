@@ -80,7 +80,9 @@ if __name__ == "__main__":
         )
 
     # Write output to Excel file and save to Google Drive
-    output_excel_filepath = GDRIVE_PROJECT_FOLDER / f"Equity Analysis output {datetime.now()}.xlsx"
+    now = datetime.now()
+    now = now.strftime("%H:%M:%S")
+    output_excel_filepath = GDRIVE_PROJECT_FOLDER / f"Equity Analysis output {now.replace(':','-').replace('.', '-')}.xlsx"
     with pd.ExcelWriter(output_excel_filepath) as writer:
         for tab in tabs:
             tab["df"].to_excel(writer, sheet_name=tab["sheetname"])
