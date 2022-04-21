@@ -11,8 +11,27 @@ For each configured path leg table, use the following naming scheme:
     - Then the summary will be named: computed.summary_of_existing_2019am_home_to_dest_zone_fullpath
 """
 
+from dataclasses import dataclass
+
 from regional_rail_equity import db
-from regional_rail_equity.database.config.path_legs_config import path_legs_config
+
+
+@dataclass
+class SummarizeTripTableConfig:
+
+    # name of the SQL table that has one row per path leg trip (including parknrides)
+    sql_tablename: str
+
+    # name of the output table with one row per zone, with demographic attributes
+    new_tablename: str
+
+
+CONFIG = [
+    SummarizeTripTableConfig(
+        sql_tablename="computed.existing2019am_path_legs_with_assignment",
+        new_tablename="aggregated.existing2019am_path_legs_with_assignment",
+    )
+]
 
 query_template = """
     drop table if exists NEW_TABLENAME;
@@ -38,10 +57,8 @@ query_template = """
 
 if __name__ == "__main__":
 
-    for table in path_legs_config:
-        existing_raw_table = table["sql_tablename"]
-        new_tablename = existing_raw_table.replace("public.", "computed.summary_of_")
-        query = query_template.replace("TABLENAME_PLACEHOLDER", table["sql_tablename"]).replace(
-            "NEW_TABLENAME", new_tablename
+    for table in CONFIG:
+        query = query_template.replace("TABLENAME_PLACEHOLDER", table.sql_tablename).replace(
+            "NEW_TABLENAME", table.new_tablename
         )
         db.execute(query)

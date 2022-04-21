@@ -1,13 +1,28 @@
 import pandas as pd
 from functools import reduce
 from datetime import datetime
+from dataclasses import dataclass
 
 from regional_rail_equity import db
 from regional_rail_equity.database.config.env_vars import GDRIVE_PROJECT_FOLDER
 from regional_rail_equity.database.config.path_legs_config import path_legs_config
 
+
+@dataclass
+class SummarizeDemographicsConfig:
+
+    # name of existing sql tablename that has one row per taz with demographics
+    aggregated_tablename: str
+
+    # ID of the scenario, used to create excel tabname
+    scenario_name: str
+
+
 summary_tables = [
-    table["sql_tablename"].replace("public.", "computed.summary_of_") for table in path_legs_config
+    SummarizeDemographicsConfig(
+        aggregated_tablename="aggregated.existing2019am_path_legs_with_assignment",
+        scenario_name="existing2019am",
+    ),
 ]
 
 
@@ -53,14 +68,13 @@ if __name__ == "__main__":
     # Run all queries for all tables
     tabs = []
 
-    for table in path_legs_config:
+    for table in summary_tables:
         dfs = []
-        computed_tablename = table["sql_tablename"].replace("public.", "computed.summary_of_")
 
         for query_template in [total_trips_query, travel_time_query, fare_query]:
             for demo_col in demographic_columns:
                 # Make the query by dropping in the data tablename and the demographic bucket to use
-                query = query_template.replace("SUMMARY_TABLE", computed_tablename).replace(
+                query = query_template.replace("SUMMARY_TABLE", table.aggregated_tablename).replace(
                     "BUCKET_NAME", demo_col
                 )
                 # Run the query and save it to the list
@@ -74,15 +88,18 @@ if __name__ == "__main__":
 
         tabs.append(
             {
-                "sheetname": table["summary_tabname"],
+                "sheetname": table.scenario_name,
                 "df": merged_df,
             }
         )
 
     # Write output to Excel file and save to Google Drive
     now = datetime.now()
-    now = now.strftime("%H:%M:%S")
-    output_excel_filepath = GDRIVE_PROJECT_FOLDER / f"Equity Analysis output {now.replace(':','-').replace('.', '-')}.xlsx"
+    now = now.strftime("%Y-%M-%d %H:%M:%S")
+    output_excel_filepath = (
+        GDRIVE_PROJECT_FOLDER
+        / f"Equity Analysis output {now.replace(':','-').replace('.', '-')}.xlsx"
+    )
     with pd.ExcelWriter(output_excel_filepath) as writer:
         for tab in tabs:
             tab["df"].to_excel(writer, sheet_name=tab["sheetname"])
