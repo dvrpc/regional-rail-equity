@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 import pandas as pd
 import random
 from rich.progress import (
@@ -11,17 +12,40 @@ from rich.progress import (
 from regional_rail_equity import db
 
 
-PATH_LEGS_TABLE = "existing_2019am_home_to_dest_zone_fullpath"
-PARKNRIDE_TABLE = "existing_2019am_home_to_station_2152"
-NEW_TABLENAME = "test_pnr_assignment"
+@dataclass
+class ParkNRideConfig:
+    title: str
+    path_legs_table: str
+    parknride_origin_table: str
+    output_tablename: str
+
+
+CONFIG = [
+    # Test case using existing 2019 datasets
+    ParkNRideConfig(
+        title="Test case with existing conditions data",
+        path_legs_table="existing_2019am_home_to_dest_zone_fullpath",
+        parknride_origin_table="existing_2019am_home_to_station_2152",
+        output_tablename="computed.test_pnr_assignment",
+    ),
+    # Scenario 1
+    # ParkNRideConfig(
+    #     title="Scenario 1 AM time period",
+    #     path_legs_table="s1_am_home_to_dest_zone_fullpath",
+    #     parknride_origin_table="21_am_home_to_station_2152",
+    #     output_tablename="computed.s1_am",
+    # ),
+    # etc ...
+]
 
 
 def assign_origin_zone_to_parkandride_path_leg_data(
     zoneid: int,
     progress: Progress,
-    path_legs_table: str = PATH_LEGS_TABLE,
-    pnr_table: str = PARKNRIDE_TABLE,
-    new_tablename: str = NEW_TABLENAME,
+    config: ParkNRideConfig,
+    # path_legs_table: str,
+    # pnr_table: str,
+    # new_tablename: str,
 ) -> pd.DataFrame:
     """
     For a given Park&Ride zone id:
@@ -39,14 +63,14 @@ def assign_origin_zone_to_parkandride_path_leg_data(
     origin_query = f"""
         with trip_sum as (
             select sum(matvalue2152) as totaltrips
-            from {pnr_table}
+            from {config.parknride_origin_table}
             where tozoneno = '{zoneid}'
         )
         select
             fromzoneno,
             matvalue2152,
             matvalue2152 / totaltrips * 100 as pct_of_total
-        from {pnr_table}, trip_sum
+        from {config.parknride_origin_table}, trip_sum
         where tozoneno = '{zoneid}'
         order by matvalue2152 / totaltrips desc
     """
@@ -67,7 +91,7 @@ def assign_origin_zone_to_parkandride_path_leg_data(
     # Get all of the path legs that started at this PnR zone
     path_leg_query = f"""
         select origzoneno, destzoneno, odtrips, faretw, minutes
-        from {path_legs_table}
+        from {config.path_legs_table}
         where origzoneno = '{zoneid}'
     """
     path_df = db.df(path_leg_query)
@@ -112,27 +136,34 @@ def assign_origin_zone_to_parkandride_path_leg_data(
 
     # Write the result to postgres
     db.import_dataframe(
-        exploded_df, tablename=new_tablename, df_import_kwargs={"if_exists": "append"}
+        exploded_df, tablename=config.output_tablename, df_import_kwargs={"if_exists": "append"}
     )
 
 
-if __name__ == "__main__":
+def compute_all_zones(config: ParkNRideConfig):
 
     # Get a list of all Park&Ride zone IDs
-    park_and_ride_zones = db.query_as_list_of_singletons(
-        f"""
+    zone_query = f"""
         select distinct origzoneno
-        from {PATH_LEGS_TABLE}
+        from {config.path_legs_table}
         where   origzoneno::int >= 90000
             and origzoneno::int < 100000
-            and origzoneno not in (
-                select distinct origzoneno from {NEW_TABLENAME}
+            and origzoneno in (
+                select distinct tozoneno from {config.parknride_origin_table}
             )
-            and origzoneno in (select distinct tozoneno from {PARKNRIDE_TABLE})
     """
-    )
 
-    dfs = []
+    if config.output_tablename in db.tables():
+        print(f"{config.title} is partially calculated. Continuing... ")
+        zone_query += """
+            and origzoneno not in (
+                select distinct origzoneno from {config.output_tablename}
+            )
+        """
+    else:
+        print(f"Computing {config.title} for the first time... ")
+
+    park_and_ride_zones = db.query_as_list_of_singletons(zone_query)
 
     with Progress(
         SpinnerColumn(),
@@ -151,5 +182,11 @@ if __name__ == "__main__":
         print(f"PROCESSING {len(park_and_ride_zones)} zones")
 
         for pnrid in park_and_ride_zones:
-            df = assign_origin_zone_to_parkandride_path_leg_data(pnrid, progress)
+            assign_origin_zone_to_parkandride_path_leg_data(pnrid, progress, config)
             progress.update(task1, advance=1)
+
+
+if __name__ == "__main__":
+
+    for config in CONFIG:
+        compute_all_zones(config)

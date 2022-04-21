@@ -24,6 +24,10 @@ model-data:
 station-data:
 	python ./regional_rail_equity/database/load/load_station_summary_tables.py
 
+parknride-estimations:
+	python ./regional_rail_equity/database/feature_engineering/assign_park_and_ride_origins_to_pathlegs.py
+
+
 data: db-setup census-data spatial-data model-data
 	pytest ./tests/database
 
