@@ -4,7 +4,7 @@ from regional_rail_equity import db
 from regional_rail_equity.helpers import print_title
 
 
-ALL_SCHEMAS = ["computed", "ctpp"]
+ALL_SCHEMAS = ["computed", "ctpp", "aggregated"]
 
 
 @print_title("CREATING NEW SCHEMAS")
