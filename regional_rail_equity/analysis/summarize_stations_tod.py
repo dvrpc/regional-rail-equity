@@ -9,12 +9,24 @@ query_template = """
     create table NEW_TABLENAME as
     
     with joined_model_with_tod as(
-        select b.station,a.name, no, c.passboardap as boardings, c.passalightap as alights, b.lucontext, b.type_1,b.existingor as existing_tod_potential, b.futurepote as future_tod_potential, st_transform(a.geom, 4326) as geom from model_rr_station_stoppoints a
+        select 
+            b.station,
+            a.name, 
+            no, 
+            c.passboardap as boardings, 
+            c.passalightap as alights, b.lucontext, b.type_1,
+            b.existingor as existing_tod_orientation, 
+            b.futurepote as future_tod_potential, 
+            b.exo_quad as existing_orientation_quad, 
+            b.fp_quad as future_potential_quad, 
+            b.quad as combined_potential,
+            st_transform(a.geom, 4326) as geom 
+        from model_rr_station_stoppoints a
         right join building_on_our_strengths_stations b
-        on st_dwithin(a.geom,b.geom,110)
+            on st_dwithin(a.geom,b.geom,110)
         inner join TABLENAME_PLACEHOLDER c 
-        on a.no = c.stoppointno
-        where b.type = 'Commuter Rail' and operator = 'SEPTA'
+            on a.no = c.stoppointno
+            where b.type = 'Commuter Rail' and operator = 'SEPTA'
         order by station)
     select * from joined_model_with_tod
      """
