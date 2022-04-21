@@ -16,7 +16,7 @@ query_template = """
         inner join TABLENAME_PLACEHOLDER c 
         on a.no = c.stoppointno
         where b.type = 'Commuter Rail' and "operator" = 'SEPTA')
-    select station, "no", lucontext, type_1, passboardap as "boardings", passalightap as "alights", "st_transform"  from joined_model_with_tod
+    select station, "no", lucontext, type_1, passboardap as "2045_nobuild_boardings", passalightap as "2045_nobuild_alights", existingor as "existing_tod_potential", futurepote as "future_tod_potential", "st_transform"  from joined_model_with_tod
     order by station
      """
 
