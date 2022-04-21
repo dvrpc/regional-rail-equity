@@ -27,7 +27,7 @@ station-data:
 
 parknride-estimations:
 	python ./regional_rail_equity/database/feature_engineering/assign_park_and_ride_origins_to_pathlegs.py
-
+	python ./regional_rail_equity/database/feature_engineering/merge_parknride_assignment_to_pathlegs.py
 
 data: db-setup census-data spatial-data model-data
 	pytest ./tests/database
@@ -35,9 +35,6 @@ data: db-setup census-data spatial-data model-data
 analysis:
 	python ./regional_rail_equity/analysis/summarize_trip_origins.py
 	python ./regional_rail_equity/analysis/summarize_demographic_trends.py
-
-# shapefiles:
-# 	python ./regional_rail_equity/database/export.py
 
 test-all:
 	pytest .
