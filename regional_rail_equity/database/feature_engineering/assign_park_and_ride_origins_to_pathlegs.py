@@ -138,6 +138,7 @@ def assign_origin_zone_to_parkandride_path_leg_data(
     db.import_dataframe(
         exploded_df, tablename=config.output_tablename, df_import_kwargs={"if_exists": "append"}
     )
+    progress.update(new_zone_task, visible=False)
 
 
 def compute_all_zones(config: ParkNRideConfig):
@@ -155,7 +156,7 @@ def compute_all_zones(config: ParkNRideConfig):
 
     if config.output_tablename in db.tables():
         print(f"{config.title} is partially calculated. Continuing... ")
-        zone_query += """
+        zone_query += f"""
             and origzoneno not in (
                 select distinct origzoneno from {config.output_tablename}
             )
