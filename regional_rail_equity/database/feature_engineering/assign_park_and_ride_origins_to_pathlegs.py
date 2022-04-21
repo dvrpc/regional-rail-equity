@@ -1,6 +1,14 @@
+from ipaddress import AddressValueError
 import pandas as pd
 import random
-from tqdm import tqdm
+from rich.progress import (
+    Progress,
+    TimeElapsedColumn,
+    SpinnerColumn,
+    Column,
+    BarColumn,
+    TimeRemainingColumn,
+)
 from regional_rail_equity import db
 
 
@@ -11,8 +19,10 @@ NEW_TABLENAME = "test_pnr_assignment"
 
 def assign_origin_zone_to_parkandride_path_leg_data(
     zoneid: int,
+    progress: Progress,
     path_legs_table: str = PATH_LEGS_TABLE,
     pnr_table: str = PARKNRIDE_TABLE,
+    new_tablename: str = NEW_TABLENAME,
 ) -> pd.DataFrame:
     """
     For a given Park&Ride zone id:
@@ -44,7 +54,6 @@ def assign_origin_zone_to_parkandride_path_leg_data(
     true_origin_df = db.df(origin_query)
 
     # Assign bookends to each row
-    print("\t -> Making bookends")
     true_origin_df["min"] = 0.0
     true_origin_df["max"] = 0.0
 
@@ -66,8 +75,6 @@ def assign_origin_zone_to_parkandride_path_leg_data(
 
     # Make an 'exploded' dataframe where each row is 0.001 trips
     # i.e. a row that had 0.099 odtrips would become 99 rows
-    print("\t -> Exploding table")
-
     newrows = []
     for idx, row in path_df.iterrows():
         rows_to_put_into_exploded_df = row["odtrips"] * 1000
@@ -83,11 +90,10 @@ def assign_origin_zone_to_parkandride_path_leg_data(
             newrows.append(data)
     exploded_df = pd.DataFrame(newrows)
 
-    # Assign a "true_origzoneno" to each row in the exploded df
-    print("\t -> Assigning new zones")
-
+    # Assign a home TAZ to every exploded trip row
+    new_zone_task = progress.add_task(f"[cyan]\t-> {zoneid}", total=exploded_df.shape[0])
     exploded_df["true_origzoneno"] = ""
-    for idx, row in tqdm(exploded_df.iterrows(), total=exploded_df.shape[0]):
+    for idx, row in exploded_df.iterrows():
 
         matched_zoneid = None
 
@@ -103,7 +109,12 @@ def assign_origin_zone_to_parkandride_path_leg_data(
         # Assign the matched zoneid to the row's "true_origzoneno" cell
         exploded_df.at[idx, "true_origzoneno"] = str(matched_zoneid)
 
-    return exploded_df
+        progress.update(new_zone_task, advance=1)
+
+    # Write the result to postgres
+    db.import_dataframe(
+        exploded_df, tablename=new_tablename, df_import_kwargs={"if_exists": "append"}
+    )
 
 
 if __name__ == "__main__":
@@ -113,19 +124,33 @@ if __name__ == "__main__":
         f"""
         select distinct origzoneno
         from {PATH_LEGS_TABLE}
-        where origzoneno::int >= 90000
+        where   origzoneno::int >= 90000
+            and origzoneno::int < 100000
+            and origzoneno not in (
+                select distinct origzoneno from {NEW_TABLENAME}
+            )
+            and origzoneno in (select distinct tozoneno from {PARKNRIDE_TABLE})
     """
     )
 
     dfs = []
 
-    for pnrid in park_and_ride_zones:
-        print(f"PROCESSING PARK AND RIDE ZONE: {pnrid}")
-        df = assign_origin_zone_to_parkandride_path_leg_data(pnrid)
-        dfs.append(df)
+    with Progress(
+        SpinnerColumn(),
+        "[progress.description]{task.description}",
+        BarColumn(bar_width=None, table_column=Column(ratio=1.5)),
+        "[progress.percentage]{task.percentage:>3.3f}%",
+        TimeRemainingColumn(),
+        TimeElapsedColumn(table_column=Column(ratio=1)),
+        expand=True,
+    ) as progress:
 
-        print("\t", df.shape)
+        task1 = progress.add_task(
+            "[green]Looping over all Park&Ride zones...", total=len(park_and_ride_zones)
+        )
 
-    merged_df = pd.concat(dfs)
+        print(f"PROCESSING {len(park_and_ride_zones)} zones")
 
-    db.import_dataframe(merged_df, tablename=NEW_TABLENAME)
+        for pnrid in park_and_ride_zones:
+            df = assign_origin_zone_to_parkandride_path_leg_data(pnrid, progress)
+            progress.update(task1, advance=1)
