@@ -2,7 +2,7 @@ from regional_rail_equity import db
 
 new_tablename = "computed.existing2019am_path_legs_with_assignment"
 raw_pathlegs_table = "existing_2019am_home_to_dest_zone_fullpath"
-assigned_parkandride_table = "test_pnr_assignment"
+assigned_parkandride_table = "computed.test_pnr_assignment"
 
 if __name__ == "__main__":
 
