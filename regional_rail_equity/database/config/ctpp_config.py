@@ -56,7 +56,6 @@ english_pa = {
     "sql_tablename": "data.pa_language_at_home",
     "names": english_column_names,
 }
-# TODO: add vehicles available table for both NJ and PA
 
 vehicles_available_column_names = [
     "ctpp_id",
