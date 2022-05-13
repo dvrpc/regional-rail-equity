@@ -143,7 +143,7 @@ mat2152_year2019am = {
 }
 
 mat2152_year2045s1am = {
-    "filename": "2045_Scenario1_AM_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
+    "filename": "2045_Scenario1_ AM_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
     "sql_tablename": "public.scenario1_2045am_home_to_station_2152",
     "column_names": [
         "FROMZONENO",
@@ -175,7 +175,7 @@ mat2152_year2045s1md = {
 }
 
 mat2152_year2045s1pm = {
-    "filename": "2045_Scenario1_PM_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
+    "filename": "2045_Scenario1_ PM_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
     "sql_tablename": "public.scenario1_2045pm_home_to_station_2152",
     "column_names": [
         "FROMZONENO",
@@ -191,7 +191,7 @@ mat2152_year2045s1pm = {
 }
 
 mat2152_year2045s1nt = {
-    "filename": "2045_Scenario1_NT_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
+    "filename": "2045_Scenario1_ NT_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
     "sql_tablename": "public.scenario1_2045nt_home_to_station_2152",
     "column_names": [
         "FROMZONENO",
