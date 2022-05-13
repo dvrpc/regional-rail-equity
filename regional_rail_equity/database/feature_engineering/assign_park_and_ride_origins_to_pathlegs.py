@@ -29,13 +29,12 @@ CONFIG = [
         output_tablename="computed.test_pnr_assignment",
     ),
     # Scenario 1
-    # ParkNRideConfig(
-    #     title="Scenario 1 AM time period",
-    #     path_legs_table="s1_am_home_to_dest_zone_fullpath",
-    #     parknride_origin_table="21_am_home_to_station_2152",
-    #     output_tablename="computed.s1_am",
-    # ),
-    # etc ...
+    ParkNRideConfig(
+        title="Scenario 1 AM time period",
+        path_legs_table="scenario1_2045am_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario1_2045am_home_to_station_2152",
+        output_tablename="computed.s1_am",
+    ),
 ]
 
 
@@ -114,7 +113,9 @@ def assign_origin_zone_to_parkandride_path_leg_data(
     exploded_df = pd.DataFrame(newrows)
 
     # Assign a home TAZ to every exploded trip row
-    new_zone_task = progress.add_task(f"[cyan]\t-> {zoneid}", total=exploded_df.shape[0])
+    new_zone_task = progress.add_task(
+        f"[cyan]\t-> {zoneid}", total=exploded_df.shape[0]
+    )
     exploded_df["true_origzoneno"] = ""
     for idx, row in exploded_df.iterrows():
 
@@ -136,7 +137,9 @@ def assign_origin_zone_to_parkandride_path_leg_data(
 
     # Write the result to postgres
     db.import_dataframe(
-        exploded_df, tablename=config.output_tablename, df_import_kwargs={"if_exists": "append"}
+        exploded_df,
+        tablename=config.output_tablename,
+        df_import_kwargs={"if_exists": "append"},
     )
     progress.update(new_zone_task, visible=False)
 
