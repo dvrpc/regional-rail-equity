@@ -26,11 +26,28 @@ class SummarizeTripTableConfig:
     new_tablename: str
 
 
+# these should be based on the outputs of the park and ride run
 CONFIG = [
     SummarizeTripTableConfig(
         sql_tablename="computed.existing2019am_path_legs_with_assignment",
         new_tablename="aggregated.existing2019am_path_legs_with_assignment",
-    )
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s1_am",
+        new_tablename="aggregated.s1_am",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s1_md",
+        new_tablename="aggregated.s1_md",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s1_pm",
+        new_tablename="aggregated.s1_pm",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s1_nt",
+        new_tablename="aggregated.s1_nt",
+    ),
 ]
 
 query_template = """
@@ -58,7 +75,7 @@ query_template = """
 if __name__ == "__main__":
 
     for table in CONFIG:
-        query = query_template.replace("TABLENAME_PLACEHOLDER", table.sql_tablename).replace(
-            "NEW_TABLENAME", table.new_tablename
-        )
+        query = query_template.replace(
+            "TABLENAME_PLACEHOLDER", table.sql_tablename
+        ).replace("NEW_TABLENAME", table.new_tablename)
         db.execute(query)
