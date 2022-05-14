@@ -26,26 +26,25 @@ class SummarizeTripTableConfig:
     new_tablename: str
 
 
-# these should be based on the outputs of the park and ride run
 CONFIG = [
     SummarizeTripTableConfig(
         sql_tablename="computed.existing2019am_path_legs_with_assignment",
         new_tablename="aggregated.existing2019am_path_legs_with_assignment",
     ),
     SummarizeTripTableConfig(
-        sql_tablename="computed.s1_am",
+        sql_tablename="computed.s1_am_joined",
         new_tablename="aggregated.s1_am",
     ),
     SummarizeTripTableConfig(
-        sql_tablename="computed.s1_md",
+        sql_tablename="computed.s1_md_joined",
         new_tablename="aggregated.s1_md",
     ),
     SummarizeTripTableConfig(
-        sql_tablename="computed.s1_pm",
+        sql_tablename="computed.s1_pm_joined",
         new_tablename="aggregated.s1_pm",
     ),
     SummarizeTripTableConfig(
-        sql_tablename="computed.s1_nt",
+        sql_tablename="computed.s1_nt_joined",
         new_tablename="aggregated.s1_nt",
     ),
 ]
