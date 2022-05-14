@@ -21,6 +21,26 @@ CONFIG = [
         assigned_parkandride_table="computed.test_pnr_assignment",
         new_tablename="computed.existing2019am_path_legs_with_assignment",
     ),
+    MergeConfig(
+        raw_pathlegs_table="scenario1_2045am_home_to_dest_zone_fullpath",
+        assigned_parkandride_table="computed.s1_am",
+        new_tablename="computed.s1_am_joined",
+    ),
+    MergeConfig(
+        raw_pathlegs_table="scenario1_2045md_home_to_dest_zone_fullpath",
+        assigned_parkandride_table="computed.s1_md",
+        new_tablename="computed.s1_md_joined",
+    ),
+    MergeConfig(
+        raw_pathlegs_table="scenario1_2045pm_home_to_dest_zone_fullpath",
+        assigned_parkandride_table="computed.s1_pm",
+        new_tablename="computed.s1_pm_joined",
+    ),
+    MergeConfig(
+        raw_pathlegs_table="scenario1_2045nt_home_to_dest_zone_fullpath",
+        assigned_parkandride_table="computed.s1_nt",
+        new_tablename="computed.s1_nt_joined",
+    ),
 ]
 
 query_template = f"""
