@@ -53,6 +53,31 @@ CONFIG = [
         parknride_origin_table="scenario1_2045nt_home_to_station_2152",
         output_tablename="computed.s1_nt",
     ),
+    # Scenario 2
+    ParkNRideConfig(
+        title="Scenario 2 AM time period",
+        path_legs_table="scenario2_2045am_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario2_2045am_home_to_station_2152",
+        output_tablename="computed.s2_am",
+    ),
+    ParkNRideConfig(
+        title="Scenario 2 MD time period",
+        path_legs_table="scenario2_2045md_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario2_2045md_home_to_station_2152",
+        output_tablename="computed.s2_md",
+    ),
+    ParkNRideConfig(
+        title="Scenario 2 PM time period",
+        path_legs_table="scenario2_2045pm_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario2_2045pm_home_to_station_2152",
+        output_tablename="computed.s2_pm",
+    ),
+    ParkNRideConfig(
+        title="Scenario 2 NT time period",
+        path_legs_table="scenario2_2045nt_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario2_2045nt_home_to_station_2152",
+        output_tablename="computed.s2_nt",
+    ),
 ]
 
 
