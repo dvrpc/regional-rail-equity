@@ -57,6 +57,23 @@ summary_tables = [
         aggregated_tablename="aggregated.s2_nt",
         scenario_name="scenario2nt",
     ),
+    # Scenario 3-------------------------------------
+    SummarizeDemographicsConfig(
+        aggregated_tablename="aggregated.s3_am",
+        scenario_name="scenario3am",
+    ),
+    SummarizeDemographicsConfig(
+        aggregated_tablename="aggregated.s3_md",
+        scenario_name="scenario3md",
+    ),
+    SummarizeDemographicsConfig(
+        aggregated_tablename="aggregated.s3_pm",
+        scenario_name="scenario3pm",
+    ),
+    SummarizeDemographicsConfig(
+        aggregated_tablename="aggregated.s3_nt",
+        scenario_name="scenario3nt",
+    ),
 ]
 
 

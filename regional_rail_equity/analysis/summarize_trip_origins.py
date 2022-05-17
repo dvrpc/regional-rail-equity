@@ -65,6 +65,23 @@ CONFIG = [
         sql_tablename="computed.s2_nt_joined",
         new_tablename="aggregated.s2_nt",
     ),
+    # Scenario 3 -----------------------------------
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s3_am_joined",
+        new_tablename="aggregated.s3_am",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s3_md_joined",
+        new_tablename="aggregated.s3_md",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s3_pm_joined",
+        new_tablename="aggregated.s3_pm",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s3_nt_joined",
+        new_tablename="aggregated.s3_nt",
+    ),
 ]
 
 query_template = """
