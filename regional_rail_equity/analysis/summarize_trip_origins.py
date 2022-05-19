@@ -30,7 +30,58 @@ CONFIG = [
     SummarizeTripTableConfig(
         sql_tablename="computed.existing2019am_path_legs_with_assignment",
         new_tablename="aggregated.existing2019am_path_legs_with_assignment",
-    )
+    ),
+    # Scenario 2 -----------------------------------
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s1_am_joined",
+        new_tablename="aggregated.s1_am",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s1_md_joined",
+        new_tablename="aggregated.s1_md",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s1_pm_joined",
+        new_tablename="aggregated.s1_pm",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s1_nt_joined",
+        new_tablename="aggregated.s1_nt",
+    ),
+    # Scenario 2 -----------------------------------
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s2_am_joined",
+        new_tablename="aggregated.s2_am",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s2_md_joined",
+        new_tablename="aggregated.s2_md",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s2_pm_joined",
+        new_tablename="aggregated.s2_pm",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s2_nt_joined",
+        new_tablename="aggregated.s2_nt",
+    ),
+    # Scenario 3 -----------------------------------
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s3_am_joined",
+        new_tablename="aggregated.s3_am",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s3_md_joined",
+        new_tablename="aggregated.s3_md",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s3_pm_joined",
+        new_tablename="aggregated.s3_pm",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s3_nt_joined",
+        new_tablename="aggregated.s3_nt",
+    ),
 ]
 
 query_template = """
@@ -58,7 +109,7 @@ query_template = """
 if __name__ == "__main__":
 
     for table in CONFIG:
-        query = query_template.replace("TABLENAME_PLACEHOLDER", table.sql_tablename).replace(
-            "NEW_TABLENAME", table.new_tablename
-        )
+        query = query_template.replace(
+            "TABLENAME_PLACEHOLDER", table.sql_tablename
+        ).replace("NEW_TABLENAME", table.new_tablename)
         db.execute(query)

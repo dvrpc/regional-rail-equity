@@ -89,7 +89,7 @@ def import_ctpp_tables(db: Database) -> None:
     """
     Import CTPP shapefiles:
         - EA_A113100 - Poverty status
-        - EA_A101108 - Race
+        - EA_A101105 - Minority Status
         - EA_A117200 - Ability to speak English by Language spoken at home
     """
 

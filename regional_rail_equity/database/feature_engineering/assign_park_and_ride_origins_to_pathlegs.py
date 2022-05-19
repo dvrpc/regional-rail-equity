@@ -29,13 +29,80 @@ CONFIG = [
         output_tablename="computed.test_pnr_assignment",
     ),
     # Scenario 1
-    # ParkNRideConfig(
-    #     title="Scenario 1 AM time period",
-    #     path_legs_table="s1_am_home_to_dest_zone_fullpath",
-    #     parknride_origin_table="21_am_home_to_station_2152",
-    #     output_tablename="computed.s1_am",
-    # ),
-    # etc ...
+    ParkNRideConfig(
+        title="Scenario 1 AM time period",
+        path_legs_table="scenario1_2045am_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario1_2045am_home_to_station_2152",
+        output_tablename="computed.s1_am",
+    ),
+    ParkNRideConfig(
+        title="Scenario 1 MD time period",
+        path_legs_table="scenario1_2045md_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario1_2045md_home_to_station_2152",
+        output_tablename="computed.s1_md",
+    ),
+    ParkNRideConfig(
+        title="Scenario 1 PM time period",
+        path_legs_table="scenario1_2045pm_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario1_2045pm_home_to_station_2152",
+        output_tablename="computed.s1_pm",
+    ),
+    ParkNRideConfig(
+        title="Scenario 1 NT time period",
+        path_legs_table="scenario1_2045nt_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario1_2045nt_home_to_station_2152",
+        output_tablename="computed.s1_nt",
+    ),
+    # Scenario 2
+    ParkNRideConfig(
+        title="Scenario 2 AM time period",
+        path_legs_table="scenario2_2045am_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario2_2045am_home_to_station_2152",
+        output_tablename="computed.s2_am",
+    ),
+    ParkNRideConfig(
+        title="Scenario 2 MD time period",
+        path_legs_table="scenario2_2045md_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario2_2045md_home_to_station_2152",
+        output_tablename="computed.s2_md",
+    ),
+    ParkNRideConfig(
+        title="Scenario 2 PM time period",
+        path_legs_table="scenario2_2045pm_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario2_2045pm_home_to_station_2152",
+        output_tablename="computed.s2_pm",
+    ),
+    ParkNRideConfig(
+        title="Scenario 2 NT time period",
+        path_legs_table="scenario2_2045nt_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario2_2045nt_home_to_station_2152",
+        output_tablename="computed.s2_nt",
+    ),
+    # Scenario 3
+    ParkNRideConfig(
+        title="Scenario 3 AM time period",
+        path_legs_table="scenario3_2045am_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario3_2045am_home_to_station_2152",
+        output_tablename="computed.s3_am",
+    ),
+    ParkNRideConfig(
+        title="Scenario 3 MD time period",
+        path_legs_table="scenario3_2045md_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario3_2045md_home_to_station_2152",
+        output_tablename="computed.s3_md",
+    ),
+    ParkNRideConfig(
+        title="Scenario 3 PM time period",
+        path_legs_table="scenario3_2045pm_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario3_2045pm_home_to_station_2152",
+        output_tablename="computed.s3_pm",
+    ),
+    ParkNRideConfig(
+        title="Scenario 3 NT time period",
+        path_legs_table="scenario3_2045nt_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario3_2045nt_home_to_station_2152",
+        output_tablename="computed.s3_nt",
+    ),
 ]
 
 
@@ -114,7 +181,9 @@ def assign_origin_zone_to_parkandride_path_leg_data(
     exploded_df = pd.DataFrame(newrows)
 
     # Assign a home TAZ to every exploded trip row
-    new_zone_task = progress.add_task(f"[cyan]\t-> {zoneid}", total=exploded_df.shape[0])
+    new_zone_task = progress.add_task(
+        f"[cyan]\t-> {zoneid}", total=exploded_df.shape[0]
+    )
     exploded_df["true_origzoneno"] = ""
     for idx, row in exploded_df.iterrows():
 
@@ -136,7 +205,9 @@ def assign_origin_zone_to_parkandride_path_leg_data(
 
     # Write the result to postgres
     db.import_dataframe(
-        exploded_df, tablename=config.output_tablename, df_import_kwargs={"if_exists": "append"}
+        exploded_df,
+        tablename=config.output_tablename,
+        df_import_kwargs={"if_exists": "append"},
     )
     progress.update(new_zone_task, visible=False)
 
