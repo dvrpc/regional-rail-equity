@@ -90,36 +90,32 @@ summary_tables = [
 
 
 demographic_columns = [
-    "bucket_nonwhite",
-    "bucket_pct_non_english",
-    "bucket_non_motorized",
-    "bucket_below_100pct_poverty",
+    "nonwhite",
+    "pct_non_english",
+    "nonmotorized",
+    "below_100pct_poverty",
 ]
 
-# Travel time query gets total trips grouped by demographic bucket number
+# Travel time query gets total trips grouped by demographic bucket number (mm edit: buckets are now 1% instead of 10)
 total_trips_query = """
-    select
-        case
-            when BUCKET_NAME is not null then BUCKET_NAME
-            else 999 end as bucket,
-        sum(total_origins) as BUCKET_NAME_origins
+
+select BUCKET_NAME::numeric(10,0) as bucket, sum(total_origins) as BUCKET_NAME_trips
     from
         SUMMARY_TABLE
-    group by BUCKET_NAME 
-    order by BUCKET_NAME 
+    group by BUCKET_NAME::numeric(10,0) 
+    order by bucket
+
 """
 
 # Travel time query is similar to the total trips query, but uses a weighted average
 travel_time_query = """
-    select
-        case
-            when BUCKET_NAME is not null then BUCKET_NAME
-            else 999 end as bucket,
-        sum(total_origins * weighted_avg_time) / sum(total_origins) as BUCKET_NAME_time
-    from
-        SUMMARY_TABLE
-    group by BUCKET_NAME 
-    order by BUCKET_NAME 
+
+select BUCKET_NAME::numeric(10,0) as bucket, sum(total_origins * weighted_avg_time) / sum(total_origins) as BUCKET_NAME_time
+from
+    SUMMARY_TABLE
+group by BUCKET_NAME::numeric(10,0) 
+order by bucket
+
 """
 
 # Fare query is exactly the same as travel time, but uses the fare column instead of time
