@@ -28,24 +28,6 @@ CONFIG = [
         parknride_origin_table="existing_2019am_home_to_station_2152",
         output_tablename="computed.test_pnr_assignment",
     ),
-    ParkNRideConfig(
-        title="Test case with existing conditions data midday",
-        path_legs_table="existing_2019md_home_to_dest_zone_fullpath",
-        parknride_origin_table="existing_2019md_home_to_station_2152",
-        output_tablename="computed.ec2019md",
-    ),
-    ParkNRideConfig(
-        title="Test case with existing conditions data PM",
-        path_legs_table="existing_2019pm_home_to_dest_zone_fullpath",
-        parknride_origin_table="existing_2019pm_home_to_station_2152",
-        output_tablename="computed.ec2019pm",
-    ),
-    ParkNRideConfig(
-        title="Test case with existing conditions data NT",
-        path_legs_table="existing_2019nt_home_to_dest_zone_fullpath",
-        parknride_origin_table="existing_2019nt_home_to_station_2152",
-        output_tablename="computed.ec2019nt",
-    ),
     # Scenario 1
     ParkNRideConfig(
         title="Scenario 1 AM time period",

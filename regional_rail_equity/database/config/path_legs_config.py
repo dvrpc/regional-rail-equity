@@ -58,48 +58,6 @@ year2019am = {
     "summary_tabname": "existing_2019am",
 }
 
-year2019md = {
-    "filename": "2019_MD_from_home_only_Full_Path_RR_Station_to_Destination_Zone.att",
-    "sql_tablename": "public.existing_2019md_home_to_dest_zone_fullpath",
-    "column_idx_with_no_zeros": 4,
-    "column_names": cols_2019,
-    "dtypes": {
-        "origzoneno": String(),
-        "odtrips": Float(),
-        "minutes": Float(),
-        "faretw": Float(),
-    },
-    "summary_tabname": "existing_2019md",
-}
-
-year2019pm = {
-    "filename": "2019_PM_from_home_only_Full_Path_RR_Station_to_Destination_Zone.att",
-    "sql_tablename": "public.existing_2019pm_home_to_dest_zone_fullpath",
-    "column_idx_with_no_zeros": 4,
-    "column_names": cols_2019,
-    "dtypes": {
-        "origzoneno": String(),
-        "odtrips": Float(),
-        "minutes": Float(),
-        "faretw": Float(),
-    },
-    "summary_tabname": "existing_2019pm",
-}
-
-year2019nt = {
-    "filename": "2019_NT_from_home_only_Full_Path_RR_Station_to_Destination_Zone.att",
-    "sql_tablename": "public.existing_2019nt_home_to_dest_zone_fullpath",
-    "column_idx_with_no_zeros": 4,
-    "column_names": cols_2019,
-    "dtypes": {
-        "origzoneno": String(),
-        "odtrips": Float(),
-        "minutes": Float(),
-        "faretw": Float(),
-    },
-    "summary_tabname": "existing_2019nt",
-}
-
 
 # Scenario 1 -------------------------------------------------------------------------------------------
 
@@ -278,9 +236,6 @@ year2045s3nt = {
 
 path_legs_config = [
     year2019am,
-    year2019md,
-    year2019pm,
-    year2019nt,
     year2045s1am,
     year2045s1md,
     year2045s1pm,
@@ -301,52 +256,6 @@ path_legs_config = [
 mat2152_year2019am = {
     "filename": "2019_AM_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
     "sql_tablename": "public.existing_2019am_home_to_station_2152",
-    "column_names": [
-        "FROMZONENO",
-        "TOZONENO",
-        "MATVALUE2152",
-    ],
-    "column_idx_with_no_zeros": 2,
-    "dtypes": {
-        "fromzoneno": String(),
-        "tozoneno": String(),
-        "matvalue2152": Float(),
-    },
-}
-
-mat2152_year2019md = {
-    "filename": "2019_MD_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
-    "sql_tablename": "public.existing_2019md_home_to_station_2152",
-    "column_names": [
-        "FROMZONENO",
-        "TOZONENO",
-        "MATVALUE2152",
-    ],
-    "column_idx_with_no_zeros": 2,
-    "dtypes": {
-        "fromzoneno": String(),
-        "tozoneno": String(),
-        "matvalue2152": Float(),
-    },
-}
-mat2152_year2019pm = {
-    "filename": "2019_PM_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
-    "sql_tablename": "public.existing_2019pm_home_to_station_2152",
-    "column_names": [
-        "FROMZONENO",
-        "TOZONENO",
-        "MATVALUE2152",
-    ],
-    "column_idx_with_no_zeros": 2,
-    "dtypes": {
-        "fromzoneno": String(),
-        "tozoneno": String(),
-        "matvalue2152": Float(),
-    },
-}
-mat2152_year2019nt = {
-    "filename": "2019_NT_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
-    "sql_tablename": "public.existing_2019nt_home_to_station_2152",
     "column_names": [
         "FROMZONENO",
         "TOZONENO",
@@ -563,9 +472,6 @@ mat2152_year2045s3nt = {
 
 mat2152_config = [
     mat2152_year2019am,
-    mat2152_year2019md,
-    mat2152_year2019pm,
-    mat2152_year2019nt,
     mat2152_year2045s1am,
     mat2152_year2045s1md,
     mat2152_year2045s1pm,
