@@ -23,17 +23,17 @@ CONFIG = [
     ),
     MergeConfig(
         raw_pathlegs_table="existing_2019md_home_to_dest_zone_fullpath",
-        assigned_parkandride_table="computed.2019ec_md",
+        assigned_parkandride_table="computed.ec_md2019",
         new_tablename="computed.existing2019md_path_legs_with_assignment",
     ),
     MergeConfig(
         raw_pathlegs_table="existing_2019pm_home_to_dest_zone_fullpath",
-        assigned_parkandride_table="computed.2019ec_pm",
+        assigned_parkandride_table="computed.ec_pm2019",
         new_tablename="computed.existing2019pm_path_legs_with_assignment",
     ),
     MergeConfig(
         raw_pathlegs_table="existing_2019nt_home_to_dest_zone_fullpath",
-        assigned_parkandride_table="computed.2019ec_nt",
+        assigned_parkandride_table="computed.ec_nt2019",
         new_tablename="computed.existing2019nt_path_legs_with_assignment",
     ),
     # Scenario 1 ---------------------------------------------------------------
