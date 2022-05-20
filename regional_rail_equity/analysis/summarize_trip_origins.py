@@ -31,6 +31,18 @@ CONFIG = [
         sql_tablename="computed.existing2019am_path_legs_with_assignment",
         new_tablename="aggregated.existing2019am_path_legs_with_assignment",
     ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.existing2019md_path_legs_with_assignment",
+        new_tablename="aggregated.existing2019md_path_legs_with_assignment",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.existing2019pm_path_legs_with_assignment",
+        new_tablename="aggregated.existing2019pm_path_legs_with_assignment",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.existing2019nt_path_legs_with_assignment",
+        new_tablename="aggregated.existing2019nt_path_legs_with_assignment",
+    ),
     # Scenario 2 -----------------------------------
     SummarizeTripTableConfig(
         sql_tablename="computed.s1_am_joined",
