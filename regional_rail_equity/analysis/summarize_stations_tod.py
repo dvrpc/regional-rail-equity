@@ -27,7 +27,7 @@ query_template = """
         right join building_on_our_strengths_stations b
             on st_dwithin(a.geom,b.geom,110)
         inner join TABLENAME_PLACEHOLDER c 
-            on a.no = c.stoppointno
+            on a.name LIKE upper(c.name)
             where b.type = 'Commuter Rail' and operator = 'SEPTA'
         order by station)
     select * from joined_model_with_tod

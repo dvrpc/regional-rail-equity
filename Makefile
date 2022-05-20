@@ -35,6 +35,7 @@ data: db-setup census-data spatial-data model-data
 analysis:
 	python ./regional_rail_equity/analysis/summarize_trip_origins.py
 	python ./regional_rail_equity/analysis/summarize_demographic_trends.py
+	python ./regional_rail_equity/analysis/summarize_stations_tod.py
 
 test-all:
 	pytest .
