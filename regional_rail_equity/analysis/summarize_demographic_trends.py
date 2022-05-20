@@ -23,6 +23,18 @@ summary_tables = [
         aggregated_tablename="aggregated.existing2019am_path_legs_with_assignment",
         scenario_name="existing2019am",
     ),
+    SummarizeDemographicsConfig(
+        aggregated_tablename="aggregated.existing2019md_path_legs_with_assignment",
+        scenario_name="existing2019md",
+    ),
+    SummarizeDemographicsConfig(
+        aggregated_tablename="aggregated.existing2019pm_path_legs_with_assignment",
+        scenario_name="existing2019pm",
+    ),
+    SummarizeDemographicsConfig(
+        aggregated_tablename="aggregated.existing2019nt_path_legs_with_assignment",
+        scenario_name="existing2019nt",
+    ),
     # Scenario 1 ------------------------------------
     SummarizeDemographicsConfig(
         aggregated_tablename="aggregated.s1_am",

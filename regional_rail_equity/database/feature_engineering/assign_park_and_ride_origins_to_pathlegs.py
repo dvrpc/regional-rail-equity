@@ -28,6 +28,24 @@ CONFIG = [
         parknride_origin_table="existing_2019am_home_to_station_2152",
         output_tablename="computed.test_pnr_assignment",
     ),
+    ParkNRideConfig(
+        title="Existing conditions 2019 MD",
+        path_legs_table="existing_2019md_home_to_dest_zone_fullpath",
+        parknride_origin_table="existing_2019md_home_to_station_2152",
+        output_tablename="computed.ec_md2019",
+    ),
+    ParkNRideConfig(
+        title="Existing conditions 2019 PM",
+        path_legs_table="existing_2019pm_home_to_dest_zone_fullpath",
+        parknride_origin_table="existing_2019pm_home_to_station_2152",
+        output_tablename="computed.ec_pm2019",
+    ),
+    ParkNRideConfig(
+        title="Existing conditions 2019 NT",
+        path_legs_table="existing_2019nt_home_to_dest_zone_fullpath",
+        parknride_origin_table="existing_2019nt_home_to_station_2152",
+        output_tablename="computed.ec_nt2019",
+    ),
     # Scenario 1
     ParkNRideConfig(
         title="Scenario 1 AM time period",
