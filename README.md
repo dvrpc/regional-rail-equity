@@ -20,3 +20,17 @@ Import all necessary data and run the test suite with:
 conda activate regional-rail-equity
 make data
 ```
+
+## Assign Path Legs to Park and Ride Zones
+
+```
+make parknride-estimations
+```
+
+## Generate Analysis Summary
+
+Generates a spreadsheet with different tabs for each scenario and timeframe
+
+```
+make analysis
+```
