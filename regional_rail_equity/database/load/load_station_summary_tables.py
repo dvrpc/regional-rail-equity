@@ -1,6 +1,8 @@
 from regional_rail_equity import db
 from regional_rail_equity.database.config.env_vars import GDRIVE_PROJECT_FOLDER
-from regional_rail_equity.database.config.station_summary_config import station_summary_files
+from regional_rail_equity.database.config.station_summary_config import (
+    station_summary_files,
+)
 from regional_rail_equity.helpers import print_title, print_msg
 
 TOD_FOLDER = GDRIVE_PROJECT_FOLDER / "Data/Inputs/TOD Station Summaries"
@@ -33,12 +35,15 @@ def import_excel():
     Import all of the configured Excel files with station-level summaries
     """
     for stationfile in station_summary_files:
-        print_msg(f"Importing {stationfile.filename}")
+        print_msg(f"Importing {stationfile.filename}, {stationfile.sheetname}")
 
         db.import_file_with_pandas(
             filepath=TOD_FOLDER / stationfile.filename,
             tablename=stationfile.sql_tablename,
-            pd_read_kwargs={"skiprows": stationfile.skiprows},
+            pd_read_kwargs={
+                "skiprows": stationfile.skiprows,
+                "sheet_name": stationfile.sheetname,
+            },
             df_import_kwargs={"if_exists": "replace"},
         )
 
