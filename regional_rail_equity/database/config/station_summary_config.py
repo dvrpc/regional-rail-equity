@@ -10,10 +10,31 @@ class StationSummaryFile:
 
 
 nobuild_2045_am = StationSummaryFile(
-    filename="2045_NoBld_AM_from_home_only_Trip_Stats_by_Station.xlsx",
+    filename="RE_2045_NoBld_RegRail_Trip_Stats.xlsx",
     skiprows=4,
-    sheetname="Sheet1",
+    sheetname="AM",
     sql_tablename="public.station_summary_2045nobuild_am",
+)
+
+nobuild_2045_md = StationSummaryFile(
+    filename="RE_2045_NoBld_RegRail_Trip_Stats.xlsx",
+    skiprows=4,
+    sheetname="MD",
+    sql_tablename="public.station_summary_2045nobuild_md",
+)
+
+nobuild_2045_pm = StationSummaryFile(
+    filename="RE_2045_NoBld_RegRail_Trip_Stats.xlsx",
+    skiprows=4,
+    sheetname="PM",
+    sql_tablename="public.station_summary_2045nobuild_pm",
+)
+
+nobuild_2045_nt = StationSummaryFile(
+    filename="RE_2045_NoBld_RegRail_Trip_Stats.xlsx",
+    skiprows=4,
+    sheetname="NT",
+    sql_tablename="public.station_summary_2045nobuild_nt",
 )
 
 # ----------Scenario 1 ----------------------------------------------------------
@@ -93,6 +114,9 @@ s3_nt = StationSummaryFile(
 
 station_summary_files = [
     nobuild_2045_am,
+    nobuild_2045_md,
+    nobuild_2045_pm,
+    nobuild_2045_nt,
     s1_am,
     s1_md,
     s1_pm,
