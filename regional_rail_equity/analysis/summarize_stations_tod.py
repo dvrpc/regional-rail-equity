@@ -43,6 +43,16 @@ query2 = """
     create table computed.station_summary_all as(
         select 
             distinct s1am.name, 
+            nobuildam.boardings as nobuildam_boardings, 
+            nobuildam.alights as nobuildam_alights, 
+            nobuildmd.boardings as nobuildmd_boardings,
+            nobuildmd.alights as nobuildmd_alights,
+            nobuildpm.boardings as nobuildpm_boardings,
+            nobuildpm.alights as nobuildpm_alights,
+            nobuildnt.boardings as nobuildnt_boardings,
+            nobuildnt.alights as nobuildnt_alights,
+
+
             s1am.boardings as s1am_boardings, 
             s1am.alights as s1am_alights, 
             s1md.boardings as s1md_boardings,
@@ -72,6 +82,17 @@ query2 = """
             s1am.combined_potential, 
             s1am.geom 
             from computed.station_summary_2045s1_am s1am
+        
+        full outer join computed.station_summary_2045nobuild_am nobuildam 
+        on s1am.no = nobuildam.no        
+        full outer join computed.station_summary_2045nobuild_md nobuildmd 
+        on s1am.no = nobuildmd.no
+        full outer join computed.station_summary_2045nobuild_pm nobuildpm
+        on s1am.no = nobuildpm.no
+        full outer join computed.station_summary_2045nobuild_nt nobuildnt
+        on s1am.no = nobuildnt.no
+
+    
         full outer join computed.station_summary_2045s1_md s1md 
         on s1am.no = s1md.no
         full outer join computed.station_summary_2045s1_pm s1pm
