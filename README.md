@@ -1,6 +1,8 @@
 # regional-rail-equity
 
-Import CTPP and regional travel demand model data into a PostgreSQL database to support an equity-oriented analysis of a variety of model scenarios.
+## Database setup
+
+Create a local PostgreSQL database, enable PostGIS, and clone the GitHub repository. 
 
 ## Development environment setup
 
