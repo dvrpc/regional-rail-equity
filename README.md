@@ -31,7 +31,7 @@ make parknride-estimations
 
 ## Generate Analysis Summary
 
-Generates a spreadsheet with different tabs for each scenario and timeframe
+Generates a spreadsheet with different tabs for each scenario and timeframe. Also generates a station-level ridership summary.
 
 ```
 make analysis
