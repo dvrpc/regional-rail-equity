@@ -130,5 +130,4 @@ dmypy.json
 
 *.ipynb
 
-*.xlsx
 *.DS_Store
