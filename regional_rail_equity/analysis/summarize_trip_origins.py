@@ -94,6 +94,23 @@ CONFIG = [
         sql_tablename="computed.s3_nt_joined",
         new_tablename="aggregated.s3_nt",
     ),
+    # Scenario 3a (redo of s3) -----------------------------------
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s3a_am_joined",
+        new_tablename="aggregated.s3a_am",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s3a_md_joined",
+        new_tablename="aggregated.s3a_md",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s3a_pm_joined",
+        new_tablename="aggregated.s3a_pm",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.s3a_nt_joined",
+        new_tablename="aggregated.s3a_nt",
+    ),
 ]
 
 query_template = """
