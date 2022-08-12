@@ -111,6 +111,31 @@ s3_nt = StationSummaryFile(
     sheetname="NT",
     sql_tablename="public.station_summary_2045s3_nt",
 )
+# ----------Scenario 3a (redo of s3) ----------------------------------------------------------
+s3a_am = StationSummaryFile(
+    filename="2045_Scenario3a_NewFare_RegRail_Trip_Stats.xlsx",
+    skiprows=4,
+    sheetname="AM",
+    sql_tablename="public.station_summary_2045s3a_am",
+)
+s3a_md = StationSummaryFile(
+    filename="2045_Scenario3a_NewFare_RegRail_Trip_Stats.xlsx",
+    skiprows=4,
+    sheetname="MD",
+    sql_tablename="public.station_summary_2045s3a_md",
+)
+s3a_pm = StationSummaryFile(
+    filename="2045_Scenario3a_NewFare_RegRail_Trip_Stats.xlsx",
+    skiprows=4,
+    sheetname="PM",
+    sql_tablename="public.station_summary_2045s3a_pm",
+)
+s3a_nt = StationSummaryFile(
+    filename="2045_Scenario3a_NewFare_RegRail_Trip_Stats.xlsx",
+    skiprows=4,
+    sheetname="NT",
+    sql_tablename="public.station_summary_2045s3a_nt",
+)
 
 station_summary_files = [
     nobuild_2045_am,
@@ -129,4 +154,8 @@ station_summary_files = [
     s3_md,
     s3_pm,
     s3_nt,
+    s3a_am,
+    s3a_md,
+    s3a_pm,
+    s3a_nt,
 ]
