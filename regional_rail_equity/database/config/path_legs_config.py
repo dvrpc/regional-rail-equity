@@ -276,6 +276,63 @@ year2045s3nt = {
     },
     "summary_tabname": "scenario3_2045nt",
 }
+# Scenario 3a (redo of s3))--------------------------------------------------------------------------------
+
+year2045s3_a_am = {
+    "filename": "2045_Scenario3a_AM_from_home_only_Full_Path_RR_Station_to_Destination_Zone.att",
+    "sql_tablename": "public.scenario3a_2045am_home_to_dest_zone_fullpath",
+    "column_idx_with_no_zeros": 4,
+    "column_names": cols_2045,
+    "dtypes": {
+        "origzoneno": String(),
+        "odtrips": Float(),
+        "minutes": Float(),
+        "faretw": Float(),
+    },
+    "summary_tabname": "scenario3a_2045am",
+}
+
+year2045s3_a_md = {
+    "filename": "2045_Scenario3a_MD_from_home_only_Full_Path_RR_Station_to_Destination_Zone.att",
+    "sql_tablename": "public.scenario3a_2045md_home_to_dest_zone_fullpath",
+    "column_idx_with_no_zeros": 4,
+    "column_names": cols_2045,
+    "dtypes": {
+        "origzoneno": String(),
+        "odtrips": Float(),
+        "minutes": Float(),
+        "faretw": Float(),
+    },
+    "summary_tabname": "scenario3a_2045md",
+}
+
+year2045s3_a_pm = {
+    "filename": "2045_Scenario3a_PM_from_home_only_Full_Path_RR_Station_to_Destination_Zone.att",
+    "sql_tablename": "public.scenario3a_2045pm_home_to_dest_zone_fullpath",
+    "column_idx_with_no_zeros": 4,
+    "column_names": cols_2045,
+    "dtypes": {
+        "origzoneno": String(),
+        "odtrips": Float(),
+        "minutes": Float(),
+        "faretw": Float(),
+    },
+    "summary_tabname": "scenario3a_2045pm",
+}
+
+year2045s3_a_nt = {
+    "filename": "2045_Scenario3a_NT_from_home_only_Full_Path_RR_Station_to_Destination_Zone.att",
+    "sql_tablename": "public.scenario3a_2045nt_home_to_dest_zone_fullpath",
+    "column_idx_with_no_zeros": 4,
+    "column_names": cols_2045,
+    "dtypes": {
+        "origzoneno": String(),
+        "odtrips": Float(),
+        "minutes": Float(),
+        "faretw": Float(),
+    },
+    "summary_tabname": "scenario3a_2045nt",
+}
 
 
 path_legs_config = [
@@ -295,6 +352,10 @@ path_legs_config = [
     year2045s3md,
     year2045s3pm,
     year2045s3nt,
+    year2045s3_a_am,
+    year2045s3_a_md,
+    year2045s3_a_pm,
+    year2045s3_a_nt,
 ]
 
 # Matrix 2152: Home TAZ to Park&Ride Zone
@@ -495,7 +556,7 @@ mat2152_year2045s2nt = {
     },
 }
 
-# Scenario 2 PNR
+# Scenario 3 PNR
 # ---------------------------------------
 
 mat2152_year2045s3am = {
@@ -562,6 +623,73 @@ mat2152_year2045s3nt = {
     },
 }
 
+# Scenario 3a PNR (redo of s3)
+# ---------------------------------------
+
+mat2152_year2045s3_a_am = {
+    "filename": "2045_Scenario3a_AM_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
+    "sql_tablename": "public.scenario3a_2045am_home_to_station_2152",
+    "column_names": [
+        "FROMZONENO",
+        "TOZONENO",
+        "MATVALUE2152",
+    ],
+    "column_idx_with_no_zeros": 2,
+    "dtypes": {
+        "fromzoneno": String(),
+        "tozoneno": String(),
+        "matvalue2152": Float(),
+    },
+}
+
+mat2152_year2045s3_a_md = {
+    "filename": "2045_Scenario3a_MD_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
+    "sql_tablename": "public.scenario3a_2045md_home_to_station_2152",
+    "column_names": [
+        "FROMZONENO",
+        "TOZONENO",
+        "MATVALUE2152",
+    ],
+    "column_idx_with_no_zeros": 2,
+    "dtypes": {
+        "fromzoneno": String(),
+        "tozoneno": String(),
+        "matvalue2152": Float(),
+    },
+}
+
+mat2152_year2045s3_a_pm = {
+    "filename": "2045_Scenario3a_PM_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
+    "sql_tablename": "public.scenario3a_2045pm_home_to_station_2152",
+    "column_names": [
+        "FROMZONENO",
+        "TOZONENO",
+        "MATVALUE2152",
+    ],
+    "column_idx_with_no_zeros": 2,
+    "dtypes": {
+        "fromzoneno": String(),
+        "tozoneno": String(),
+        "matvalue2152": Float(),
+    },
+}
+
+mat2152_year2045s3_a_nt = {
+    "filename": "2045_Scenario3a_NT_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
+    "sql_tablename": "public.scenario3a_2045nt_home_to_station_2152",
+    "column_names": [
+        "FROMZONENO",
+        "TOZONENO",
+        "MATVALUE2152",
+    ],
+    "column_idx_with_no_zeros": 2,
+    "dtypes": {
+        "fromzoneno": String(),
+        "tozoneno": String(),
+        "matvalue2152": Float(),
+    },
+}
+
 mat2152_config = [
     mat2152_year2019am,
     mat2152_year2019md,
@@ -579,4 +707,8 @@ mat2152_config = [
     mat2152_year2045s3md,
     mat2152_year2045s3pm,
     mat2152_year2045s3nt,
+    mat2152_year2045s3_a_am,
+    mat2152_year2045s3_a_md,
+    mat2152_year2045s3_a_pm,
+    mat2152_year2045s3_a_nt,
 ]
