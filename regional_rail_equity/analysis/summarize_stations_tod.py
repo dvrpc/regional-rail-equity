@@ -107,13 +107,13 @@ query2 = """
         on s1am.no = s2pm.no
         full outer join computed.station_summary_2045s2_nt s2nt
         on s1am.no = s2nt.no
-        full outer join computed.station_summary_2045s3_am s3am
+        full outer join computed.station_summary_2045s3a_am s3am
         on s1am.no = s3am.no
-        full outer join computed.station_summary_2045s3_md s3md
+        full outer join computed.station_summary_2045s3a_md s3md
         on s1am.no = s3md.no
-        full outer join computed.station_summary_2045s3_pm s3pm
+        full outer join computed.station_summary_2045s3a_pm s3pm
         on s1am.no = s3pm.no
-        full outer join computed.station_summary_2045s3_nt s3nt
+        full outer join computed.station_summary_2045s3a_nt s3nt
         on s1am.no = s3nt.no
         order by name);
 """
