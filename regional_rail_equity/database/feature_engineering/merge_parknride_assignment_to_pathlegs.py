@@ -99,6 +99,27 @@ CONFIG = [
         assigned_parkandride_table="computed.s3_nt",
         new_tablename="computed.s3_nt_joined",
     ),
+    # Scenario 3a (redo of s3) ---------------------------------------------------------------
+    MergeConfig(
+        raw_pathlegs_table="scenario3a_2045am_home_to_dest_zone_fullpath",
+        assigned_parkandride_table="computed.s3a_am",
+        new_tablename="computed.s3a_am_joined",
+    ),
+    MergeConfig(
+        raw_pathlegs_table="scenario3a_2045md_home_to_dest_zone_fullpath",
+        assigned_parkandride_table="computed.s3a_md",
+        new_tablename="computed.s3a_md_joined",
+    ),
+    MergeConfig(
+        raw_pathlegs_table="scenario3a_2045pm_home_to_dest_zone_fullpath",
+        assigned_parkandride_table="computed.s3a_pm",
+        new_tablename="computed.s3a_pm_joined",
+    ),
+    MergeConfig(
+        raw_pathlegs_table="scenario3a_2045nt_home_to_dest_zone_fullpath",
+        assigned_parkandride_table="computed.s3a_nt",
+        new_tablename="computed.s3a_nt_joined",
+    ),
 ]
 
 query_template = f"""

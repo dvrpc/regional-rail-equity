@@ -86,6 +86,23 @@ summary_tables = [
         aggregated_tablename="aggregated.s3_nt",
         scenario_name="scenario3nt",
     ),
+    # Scenario 3a (redo of s3)-------------------------------------
+    SummarizeDemographicsConfig(
+        aggregated_tablename="aggregated.s3a_am",
+        scenario_name="scenario3aam",
+    ),
+    SummarizeDemographicsConfig(
+        aggregated_tablename="aggregated.s3a_md",
+        scenario_name="scenario3amd",
+    ),
+    SummarizeDemographicsConfig(
+        aggregated_tablename="aggregated.s3a_pm",
+        scenario_name="scenario3apm",
+    ),
+    SummarizeDemographicsConfig(
+        aggregated_tablename="aggregated.s3a_nt",
+        scenario_name="scenario3ant",
+    ),
 ]
 
 

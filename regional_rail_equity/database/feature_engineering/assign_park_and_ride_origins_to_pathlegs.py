@@ -121,6 +121,31 @@ CONFIG = [
         parknride_origin_table="scenario3_2045nt_home_to_station_2152",
         output_tablename="computed.s3_nt",
     ),
+    # Scenario 3a (redo of s3)
+    ParkNRideConfig(
+        title="Scenario 3a AM time period",
+        path_legs_table="scenario3a_2045am_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario3a_2045am_home_to_station_2152",
+        output_tablename="computed.s3a_am",
+    ),
+    ParkNRideConfig(
+        title="Scenario 3a MD time period",
+        path_legs_table="scenario3a_2045md_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario3a_2045md_home_to_station_2152",
+        output_tablename="computed.s3a_md",
+    ),
+    ParkNRideConfig(
+        title="Scenario 3a PM time period",
+        path_legs_table="scenario3a_2045pm_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario3a_2045pm_home_to_station_2152",
+        output_tablename="computed.s3a_pm",
+    ),
+    ParkNRideConfig(
+        title="Scenario 3a NT time period",
+        path_legs_table="scenario3a_2045nt_home_to_dest_zone_fullpath",
+        parknride_origin_table="scenario3a_2045nt_home_to_station_2152",
+        output_tablename="computed.s3a_nt",
+    ),
 ]
 
 
