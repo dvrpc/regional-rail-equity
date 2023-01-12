@@ -103,6 +103,40 @@ summary_tables = [
         aggregated_tablename="aggregated.s3a_nt",
         scenario_name="scenario3ant",
     ),
+    # Final Baseline-------------------------------------
+    SummarizeDemographicsConfig(
+        aggregated_tablename="aggregated.final_baseline_am",
+        scenario_name="final_baseline_am",
+    ),
+    SummarizeDemographicsConfig(
+        aggregated_tablename="aggregated.final_baseline_md",
+        scenario_name="final_baseline_md",
+    ),
+    SummarizeDemographicsConfig(
+        aggregated_tablename="aggregated.final_baseline_pm",
+        scenario_name="final_baseline_pm",
+    ),
+    SummarizeDemographicsConfig(
+        aggregated_tablename="aggregated.final_baseline_nt",
+        scenario_name="final_baseline_nt",
+    ),
+    # Final Alt-------------------------------------
+    SummarizeDemographicsConfig(
+        aggregated_tablename="aggregated.final_alt_am",
+        scenario_name="final_alt_am",
+    ),
+    SummarizeDemographicsConfig(
+        aggregated_tablename="aggregated.final_alt_md",
+        scenario_name="final_alt_md",
+    ),
+    SummarizeDemographicsConfig(
+        aggregated_tablename="aggregated.final_alt_pm",
+        scenario_name="final_alt_pm",
+    ),
+    SummarizeDemographicsConfig(
+        aggregated_tablename="aggregated.final_alt_nt",
+        scenario_name="final_alt_nt",
+    ),
 ]
 
 
