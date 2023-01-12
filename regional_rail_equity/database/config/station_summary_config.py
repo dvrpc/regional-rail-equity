@@ -136,6 +136,56 @@ s3a_nt = StationSummaryFile(
     sheetname="NT",
     sql_tablename="public.station_summary_2045s3a_nt",
 )
+# ----------Final Baseline ----------------------------------------------------------
+final_baseline_am = StationSummaryFile(
+    filename="2045_TIM24_v18_Base_62fix_RegRail_Trip_Stats.xlsx",
+    skiprows=4,
+    sheetname="AM",
+    sql_tablename="public.station_summary_2045final_baseline_am",
+)
+final_baseline_md = StationSummaryFile(
+    filename="2045_TIM24_v18_Base_62fix_RegRail_Trip_Stats.xlsx",
+    skiprows=4,
+    sheetname="MD",
+    sql_tablename="public.station_summary_2045final_baseline_md",
+)
+final_baseline_pm = StationSummaryFile(
+    filename="2045_TIM24_v18_Base_62fix_RegRail_Trip_Stats.xlsx",
+    skiprows=4,
+    sheetname="PM",
+    sql_tablename="public.station_summary_2045final_baseline_pm",
+)
+final_baseline_nt = StationSummaryFile(
+    filename="2045_TIM24_v18_Base_62fix_RegRail_Trip_Stats.xlsx",
+    skiprows=4,
+    sheetname="NT",
+    sql_tablename="public.station_summary_2045final_baseline_nt",
+)
+# ----------Final Alt ----------------------------------------------------------
+final_alt_am = StationSummaryFile(
+    filename="2045_TIM24_v18_Alt_RegRail_Trip_Stats.xlsx",
+    skiprows=4,
+    sheetname="AM",
+    sql_tablename="public.station_summary_2045final_alt_am",
+)
+final_alt_md = StationSummaryFile(
+    filename="2045_TIM24_v18_Alt_RegRail_Trip_Stats.xlsx",
+    skiprows=4,
+    sheetname="MD",
+    sql_tablename="public.station_summary_2045final_alt_md",
+)
+final_alt_pm = StationSummaryFile(
+    filename="2045_TIM24_v18_Alt_RegRail_Trip_Stats.xlsx",
+    skiprows=4,
+    sheetname="PM",
+    sql_tablename="public.station_summary_2045final_alt_pm",
+)
+final_alt_nt = StationSummaryFile(
+    filename="2045_TIM24_v18_Alt_RegRail_Trip_Stats.xlsx",
+    skiprows=4,
+    sheetname="NT",
+    sql_tablename="public.station_summary_2045final_alt_nt",
+)
 
 station_summary_files = [
     nobuild_2045_am,
@@ -158,4 +208,12 @@ station_summary_files = [
     s3a_md,
     s3a_pm,
     s3a_nt,
+    final_baseline_am,
+    final_baseline_md,
+    final_baseline_pm,
+    final_baseline_nt,
+    final_alt_am,
+    final_alt_md,
+    final_alt_pm,
+    final_alt_nt,
 ]
