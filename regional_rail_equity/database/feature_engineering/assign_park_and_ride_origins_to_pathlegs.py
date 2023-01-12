@@ -146,6 +146,56 @@ CONFIG = [
         parknride_origin_table="scenario3a_2045nt_home_to_station_2152",
         output_tablename="computed.s3a_nt",
     ),
+    # Final Baseline
+    ParkNRideConfig(
+        title="Final Baseline AM time period",
+        path_legs_table="final_baseline_2045am_home_to_dest_zone_fullpath",
+        parknride_origin_table="final_baseline_2045am_home_to_station_2152",
+        output_tablename="computed.final_baseline_am",
+    ),
+    ParkNRideConfig(
+        title="Final Baseline MD time period",
+        path_legs_table="final_baseline_2045md_home_to_dest_zone_fullpath",
+        parknride_origin_table="final_baseline_2045md_home_to_station_2152",
+        output_tablename="computed.final_baseline_md",
+    ),
+    ParkNRideConfig(
+        title="Final Baseline PM time period",
+        path_legs_table="final_baseline_2045pm_home_to_dest_zone_fullpath",
+        parknride_origin_table="final_baseline_2045pm_home_to_station_2152",
+        output_tablename="computed.final_baseline_pm",
+    ),
+    ParkNRideConfig(
+        title="Final Baseline NT time period",
+        path_legs_table="final_baseline_2045nt_home_to_dest_zone_fullpath",
+        parknride_origin_table="final_baseline_2045nt_home_to_station_2152",
+        output_tablename="computed.final_baseline_nt",
+    ),
+    # Final Alt
+    ParkNRideConfig(
+        title="Final Alt AM time period",
+        path_legs_table="final_alt_2045am_home_to_dest_zone_fullpath",
+        parknride_origin_table="final_alt_2045am_home_to_station_2152",
+        output_tablename="computed.final_alt_am",
+    ),
+    ParkNRideConfig(
+        title="Final Alt MD time period",
+        path_legs_table="final_alt_2045md_home_to_dest_zone_fullpath",
+        parknride_origin_table="final_alt_2045md_home_to_station_2152",
+        output_tablename="computed.final_alt_md",
+    ),
+    ParkNRideConfig(
+        title="Final Alt PM time period",
+        path_legs_table="final_alt_2045pm_home_to_dest_zone_fullpath",
+        parknride_origin_table="final_alt_2045pm_home_to_station_2152",
+        output_tablename="computed.final_alt_pm",
+    ),
+    ParkNRideConfig(
+        title="Final Alt NT time period",
+        path_legs_table="final_alt_2045nt_home_to_dest_zone_fullpath",
+        parknride_origin_table="final_alt_2045nt_home_to_station_2152",
+        output_tablename="computed.final_alt_nt",
+    ),
 ]
 
 
