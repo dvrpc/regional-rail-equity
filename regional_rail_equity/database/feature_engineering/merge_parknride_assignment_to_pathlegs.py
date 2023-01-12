@@ -120,6 +120,48 @@ CONFIG = [
         assigned_parkandride_table="computed.s3a_nt",
         new_tablename="computed.s3a_nt_joined",
     ),
+    # Final Baseline ---------------------------------------------------------------
+    MergeConfig(
+        raw_pathlegs_table="final_baseline_2045am_home_to_dest_zone_fullpath",
+        assigned_parkandride_table="computed.final_baseline_am",
+        new_tablename="computed.final_baseline_am_joined",
+    ),
+    MergeConfig(
+        raw_pathlegs_table="final_baseline_2045md_home_to_dest_zone_fullpath",
+        assigned_parkandride_table="computed.final_baseline_md",
+        new_tablename="computed.final_baseline_md_joined",
+    ),
+    MergeConfig(
+        raw_pathlegs_table="final_baseline_2045pm_home_to_dest_zone_fullpath",
+        assigned_parkandride_table="computed.final_baseline_pm",
+        new_tablename="computed.final_baseline_pm_joined",
+    ),
+    MergeConfig(
+        raw_pathlegs_table="final_baseline_2045nt_home_to_dest_zone_fullpath",
+        assigned_parkandride_table="computed.final_baseline_nt",
+        new_tablename="computed.final_baseline_nt_joined",
+    ),
+    # Final Alt  ---------------------------------------------------------------
+    MergeConfig(
+        raw_pathlegs_table="final_alt_2045am_home_to_dest_zone_fullpath",
+        assigned_parkandride_table="computed.final_alt_am",
+        new_tablename="computed.final_alt_am_joined",
+    ),
+    MergeConfig(
+        raw_pathlegs_table="final_alt_2045md_home_to_dest_zone_fullpath",
+        assigned_parkandride_table="computed.final_alt_md",
+        new_tablename="computed.final_alt_md_joined",
+    ),
+    MergeConfig(
+        raw_pathlegs_table="final_alt_2045pm_home_to_dest_zone_fullpath",
+        assigned_parkandride_table="computed.final_alt_pm",
+        new_tablename="computed.final_alt_pm_joined",
+    ),
+    MergeConfig(
+        raw_pathlegs_table="final_alt_2045nt_home_to_dest_zone_fullpath",
+        assigned_parkandride_table="computed.final_alt_nt",
+        new_tablename="computed.final_alt_nt_joined",
+    ),
 ]
 
 query_template = f"""
