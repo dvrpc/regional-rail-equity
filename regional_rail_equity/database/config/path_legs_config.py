@@ -334,6 +334,121 @@ year2045s3_a_nt = {
     "summary_tabname": "scenario3a_2045nt",
 }
 
+# Final Baseline--------------------------------------------------------------------------------
+
+year2045final_baseline_am = {
+    "filename": "BR_Base_AM_from_home_only_Full_Path_RR_Station_to_Destination_Zone.att",
+    "sql_tablename": "public.final_baseline_2045am_home_to_dest_zone_fullpath",
+    "column_idx_with_no_zeros": 4,
+    "column_names": cols_2045,
+    "dtypes": {
+        "origzoneno": String(),
+        "odtrips": Float(),
+        "minutes": Float(),
+        "faretw": Float(),
+    },
+    "summary_tabname": "final_baseline_2045am",
+}
+
+year2045final_baseline_md = {
+    "filename": "BR_Base_MD_from_home_only_Full_Path_RR_Station_to_Destination_Zone.att",
+    "sql_tablename": "public.final_baseline_2045md_home_to_dest_zone_fullpath",
+    "column_idx_with_no_zeros": 4,
+    "column_names": cols_2045,
+    "dtypes": {
+        "origzoneno": String(),
+        "odtrips": Float(),
+        "minutes": Float(),
+        "faretw": Float(),
+    },
+    "summary_tabname": "final_baseline_2045md",
+}
+
+year2045final_baseline_pm = {
+    "filename": "BR_Base_PM_from_home_only_Full_Path_RR_Station_to_Destination_Zone.att",
+    "sql_tablename": "public.final_baseline_2045pm_home_to_dest_zone_fullpath",
+    "column_idx_with_no_zeros": 4,
+    "column_names": cols_2045,
+    "dtypes": {
+        "origzoneno": String(),
+        "odtrips": Float(),
+        "minutes": Float(),
+        "faretw": Float(),
+    },
+    "summary_tabname": "final_baseline_2045pm",
+}
+
+year2045final_baseline_nt = {
+    "filename": "BR_Base_NT_from_home_only_Full_Path_RR_Station_to_Destination_Zone.att",
+    "sql_tablename": "public.final_baseline_2045nt_home_to_dest_zone_fullpath",
+    "column_idx_with_no_zeros": 4,
+    "column_names": cols_2045,
+    "dtypes": {
+        "origzoneno": String(),
+        "odtrips": Float(),
+        "minutes": Float(),
+        "faretw": Float(),
+    },
+    "summary_tabname": "final_baseline_2045nt",
+}
+
+# Final Alt--------------------------------------------------------------------------------
+
+year2045final_alt_am = {
+    "filename": "BR_Alt_AM_from_home_only_Full_Path_RR_Station_to_Destination_Zone.att",
+    "sql_tablename": "public.final_alt_2045am_home_to_dest_zone_fullpath",
+    "column_idx_with_no_zeros": 4,
+    "column_names": cols_2045,
+    "dtypes": {
+        "origzoneno": String(),
+        "odtrips": Float(),
+        "minutes": Float(),
+        "faretw": Float(),
+    },
+    "summary_tabname": "final_alt_2045am",
+}
+
+year2045final_alt_md = {
+    "filename": "BR_Alt_MD_from_home_only_Full_Path_RR_Station_to_Destination_Zone.att",
+    "sql_tablename": "public.final_alt_2045md_home_to_dest_zone_fullpath",
+    "column_idx_with_no_zeros": 4,
+    "column_names": cols_2045,
+    "dtypes": {
+        "origzoneno": String(),
+        "odtrips": Float(),
+        "minutes": Float(),
+        "faretw": Float(),
+    },
+    "summary_tabname": "final_alt_2045md",
+}
+
+year2045final_alt_pm = {
+    "filename": "BR_Alt_PM_from_home_only_Full_Path_RR_Station_to_Destination_Zone.att",
+    "sql_tablename": "public.final_alt_2045pm_home_to_dest_zone_fullpath",
+    "column_idx_with_no_zeros": 4,
+    "column_names": cols_2045,
+    "dtypes": {
+        "origzoneno": String(),
+        "odtrips": Float(),
+        "minutes": Float(),
+        "faretw": Float(),
+    },
+    "summary_tabname": "final_alt_2045pm",
+}
+
+year2045final_alt_nt = {
+    "filename": "BR_Alt_NT_from_home_only_Full_Path_RR_Station_to_Destination_Zone.att",
+    "sql_tablename": "public.final_alt_2045nt_home_to_dest_zone_fullpath",
+    "column_idx_with_no_zeros": 4,
+    "column_names": cols_2045,
+    "dtypes": {
+        "origzoneno": String(),
+        "odtrips": Float(),
+        "minutes": Float(),
+        "faretw": Float(),
+    },
+    "summary_tabname": "final_alt_2045nt",
+}
 
 path_legs_config = [
     year2019am,
@@ -356,6 +471,14 @@ path_legs_config = [
     year2045s3_a_md,
     year2045s3_a_pm,
     year2045s3_a_nt,
+    year2045final_baseline_am,
+    year2045final_baseline_md,
+    year2045final_baseline_pm,
+    year2045final_baseline_nt,
+    year2045final_alt_am,
+    year2045final_alt_md,
+    year2045final_alt_pm,
+    year2045final_alt_nt,
 ]
 
 # Matrix 2152: Home TAZ to Park&Ride Zone
@@ -690,6 +813,140 @@ mat2152_year2045s3_a_nt = {
     },
 }
 
+# Final Baseline
+# ---------------------------------------
+
+mat2152_year2045final_baseline_am = {
+    "filename": "BR_Base_AM_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
+    "sql_tablename": "public.scenario_final_baseline_2045am_home_to_station_2152",
+    "column_names": [
+        "FROMZONENO",
+        "TOZONENO",
+        "MATVALUE2152",
+    ],
+    "column_idx_with_no_zeros": 2,
+    "dtypes": {
+        "fromzoneno": String(),
+        "tozoneno": String(),
+        "matvalue2152": Float(),
+    },
+}
+
+mat2152_year2045final_baseline_md = {
+    "filename": "BR_Base_MD_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
+    "sql_tablename": "public.scenario_final_baseline_2045md_home_to_station_2152",
+    "column_names": [
+        "FROMZONENO",
+        "TOZONENO",
+        "MATVALUE2152",
+    ],
+    "column_idx_with_no_zeros": 2,
+    "dtypes": {
+        "fromzoneno": String(),
+        "tozoneno": String(),
+        "matvalue2152": Float(),
+    },
+}
+
+mat2152_year2045final_baseline_pm = {
+    "filename": "BR_Base_PM_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
+    "sql_tablename": "public.scenario_final_baseline_2045pm_home_to_station_2152",
+    "column_names": [
+        "FROMZONENO",
+        "TOZONENO",
+        "MATVALUE2152",
+    ],
+    "column_idx_with_no_zeros": 2,
+    "dtypes": {
+        "fromzoneno": String(),
+        "tozoneno": String(),
+        "matvalue2152": Float(),
+    },
+}
+
+mat2152_year2045final_baseline_nt = {
+    "filename": "BR_Base_NT_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
+    "sql_tablename": "public.scenario_final_baseline_2045nt_home_to_station_2152",
+    "column_names": [
+        "FROMZONENO",
+        "TOZONENO",
+        "MATVALUE2152",
+    ],
+    "column_idx_with_no_zeros": 2,
+    "dtypes": {
+        "fromzoneno": String(),
+        "tozoneno": String(),
+        "matvalue2152": Float(),
+    },
+}
+
+# Final Alt
+# ---------------------------------------
+
+mat2152_year2045final_alt_am = {
+    "filename": "BR_Alt_AM_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
+    "sql_tablename": "public.scenario_final_alt_2045am_home_to_station_2152",
+    "column_names": [
+        "FROMZONENO",
+        "TOZONENO",
+        "MATVALUE2152",
+    ],
+    "column_idx_with_no_zeros": 2,
+    "dtypes": {
+        "fromzoneno": String(),
+        "tozoneno": String(),
+        "matvalue2152": Float(),
+    },
+}
+
+mat2152_year2045final_alt_md = {
+    "filename": "BR_Alt_MD_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
+    "sql_tablename": "public.scenario_final_alt_2045md_home_to_station_2152",
+    "column_names": [
+        "FROMZONENO",
+        "TOZONENO",
+        "MATVALUE2152",
+    ],
+    "column_idx_with_no_zeros": 2,
+    "dtypes": {
+        "fromzoneno": String(),
+        "tozoneno": String(),
+        "matvalue2152": Float(),
+    },
+}
+
+mat2152_year2045final_alt_pm = {
+    "filename": "BR_Alt_PM_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
+    "sql_tablename": "public.scenario_final_alt_2045pm_home_to_station_2152",
+    "column_names": [
+        "FROMZONENO",
+        "TOZONENO",
+        "MATVALUE2152",
+    ],
+    "column_idx_with_no_zeros": 2,
+    "dtypes": {
+        "fromzoneno": String(),
+        "tozoneno": String(),
+        "matvalue2152": Float(),
+    },
+}
+
+mat2152_year2045final_alt_nt = {
+    "filename": "BR_Alt_NT_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
+    "sql_tablename": "public.scenario_final_alt_2045nt_home_to_station_2152",
+    "column_names": [
+        "FROMZONENO",
+        "TOZONENO",
+        "MATVALUE2152",
+    ],
+    "column_idx_with_no_zeros": 2,
+    "dtypes": {
+        "fromzoneno": String(),
+        "tozoneno": String(),
+        "matvalue2152": Float(),
+    },
+}
+
 mat2152_config = [
     mat2152_year2019am,
     mat2152_year2019md,
@@ -711,4 +968,12 @@ mat2152_config = [
     mat2152_year2045s3_a_md,
     mat2152_year2045s3_a_pm,
     mat2152_year2045s3_a_nt,
+    mat2152_year2045final_baseline_am,
+    mat2152_year2045final_baseline_md,
+    mat2152_year2045final_baseline_pm,
+    mat2152_year2045final_baseline_nt,
+    mat2152_year2045final_alt_am,
+    mat2152_year2045final_alt_md,
+    mat2152_year2045final_alt_pm,
+    mat2152_year2045final_alt_nt,
 ]
