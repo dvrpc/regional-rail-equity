@@ -818,7 +818,7 @@ mat2152_year2045s3_a_nt = {
 
 mat2152_year2045final_baseline_am = {
     "filename": "BR_Base_AM_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
-    "sql_tablename": "public.scenario_final_baseline_2045am_home_to_station_2152",
+    "sql_tablename": "public.final_baseline_2045am_home_to_station_2152",
     "column_names": [
         "FROMZONENO",
         "TOZONENO",
@@ -834,7 +834,7 @@ mat2152_year2045final_baseline_am = {
 
 mat2152_year2045final_baseline_md = {
     "filename": "BR_Base_MD_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
-    "sql_tablename": "public.scenario_final_baseline_2045md_home_to_station_2152",
+    "sql_tablename": "public.final_baseline_2045md_home_to_station_2152",
     "column_names": [
         "FROMZONENO",
         "TOZONENO",
@@ -850,7 +850,7 @@ mat2152_year2045final_baseline_md = {
 
 mat2152_year2045final_baseline_pm = {
     "filename": "BR_Base_PM_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
-    "sql_tablename": "public.scenario_final_baseline_2045pm_home_to_station_2152",
+    "sql_tablename": "public.final_baseline_2045pm_home_to_station_2152",
     "column_names": [
         "FROMZONENO",
         "TOZONENO",
@@ -866,7 +866,7 @@ mat2152_year2045final_baseline_pm = {
 
 mat2152_year2045final_baseline_nt = {
     "filename": "BR_Base_NT_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
-    "sql_tablename": "public.scenario_final_baseline_2045nt_home_to_station_2152",
+    "sql_tablename": "public.final_baseline_2045nt_home_to_station_2152",
     "column_names": [
         "FROMZONENO",
         "TOZONENO",
@@ -885,7 +885,7 @@ mat2152_year2045final_baseline_nt = {
 
 mat2152_year2045final_alt_am = {
     "filename": "BR_Alt_AM_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
-    "sql_tablename": "public.scenario_final_alt_2045am_home_to_station_2152",
+    "sql_tablename": "public.final_alt_2045am_home_to_station_2152",
     "column_names": [
         "FROMZONENO",
         "TOZONENO",
@@ -901,7 +901,7 @@ mat2152_year2045final_alt_am = {
 
 mat2152_year2045final_alt_md = {
     "filename": "BR_Alt_MD_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
-    "sql_tablename": "public.scenario_final_alt_2045md_home_to_station_2152",
+    "sql_tablename": "public.final_alt_2045md_home_to_station_2152",
     "column_names": [
         "FROMZONENO",
         "TOZONENO",
@@ -917,7 +917,7 @@ mat2152_year2045final_alt_md = {
 
 mat2152_year2045final_alt_pm = {
     "filename": "BR_Alt_PM_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
-    "sql_tablename": "public.scenario_final_alt_2045pm_home_to_station_2152",
+    "sql_tablename": "public.final_alt_2045pm_home_to_station_2152",
     "column_names": [
         "FROMZONENO",
         "TOZONENO",
@@ -933,7 +933,7 @@ mat2152_year2045final_alt_pm = {
 
 mat2152_year2045final_alt_nt = {
     "filename": "BR_Alt_NT_from_home_only_Matrix2152_TrAuto_Home_to_Station_Person_Trips.att",
-    "sql_tablename": "public.scenario_final_alt_2045nt_home_to_station_2152",
+    "sql_tablename": "public.final_alt_2045nt_home_to_station_2152",
     "column_names": [
         "FROMZONENO",
         "TOZONENO",
