@@ -111,6 +111,40 @@ CONFIG = [
         sql_tablename="computed.s3a_nt_joined",
         new_tablename="aggregated.s3a_nt",
     ),
+    # Final Baseline-----------------------------------
+    SummarizeTripTableConfig(
+        sql_tablename="computed.final_baseline_am_joined",
+        new_tablename="aggregated.final_baseline_am",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.final_baseline_md_joined",
+        new_tablename="aggregated.final_baseline_md",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.final_baseline_pm_joined",
+        new_tablename="aggregated.final_baseline_pm",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.final_baseline_nt_joined",
+        new_tablename="aggregated.final_baseline_nt",
+    ),
+    # Final Alt -----------------------------------
+    SummarizeTripTableConfig(
+        sql_tablename="computed.final_alt_am_joined",
+        new_tablename="aggregated.final_alt_am",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.final_alt_md_joined",
+        new_tablename="aggregated.final_alt_md",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.final_alt_pm_joined",
+        new_tablename="aggregated.final_alt_pm",
+    ),
+    SummarizeTripTableConfig(
+        sql_tablename="computed.final_alt_nt_joined",
+        new_tablename="aggregated.final_alt_nt",
+    ),
 ]
 
 query_template = """
