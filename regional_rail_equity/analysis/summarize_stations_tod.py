@@ -51,16 +51,6 @@ query2 = """
             nobuildpm.alights as nobuildpm_alights,
             nobuildnt.boardings as nobuildnt_boardings,
             nobuildnt.alights as nobuildnt_alights,
-
-
-            s1am.boardings as s1am_boardings, 
-            s1am.alights as s1am_alights, 
-            s1md.boardings as s1md_boardings,
-            s1md.alights as s1md_alights,
-            s1pm.boardings as s1pm_boardings,
-            s1pm.alights as s1pm_alights,
-            s1nt.boardings as s1nt_boardings,
-            s1nt.alights as s1nt_alights,
             s2am.boardings as s2am_boardings,
             s2am.alights as s2am_alights,
             s2md.boardings as s2md_boardings,
@@ -69,20 +59,27 @@ query2 = """
             s2pm.alights as s2pm_alights,
             s2nt.boardings as s2nt_boardings,
             s2nt.alights as s2nt_alights,
-            s3am.boardings as s3am_boardings,
-            s3am.alights as s3am_alights,
-            s3md.boardings as s3md_boardings,
-            s3md.alights as s3md_alights,
-            s3pm.boardings as s3pm_boardings,
-            s3pm.alights as s3pm_alights,
-            s3nt.boardings as s3nt_boardings,
-            s3nt.alights as s3nt_alights,
+            final_baseline_am.boardings as final_baseline_am_boardings,
+            final_baseline_am.alights as final_baseline_am_alights,
+            final_baseline_md.boardings as final_baseline_md_boardings,
+            final_baseline_md.alights as final_baseline_md_alights,
+            final_baseline_pm.boardings as final_baseline_pm_boardings,
+            final_baseline_pm.alights as final_baseline_pm_alights,
+            final_baseline_nt.boardings as final_baseline_nt_boardings,
+            final_baseline_nt.alights as final_baseline_nt_alights,
+            final_alt_am.boardings as final_alt_am_boardings,
+            final_alt_am.alights as final_alt_am_alights,
+            final_alt_md.boardings as final_alt_md_boardings,
+            final_alt_md.alights as final_alt_md_alights,
+            final_alt_pm.boardings as final_alt_pm_boardings,
+            final_alt_pm.alights as final_alt_pm_alights,
+            final_alt_nt.boardings as final_alt_nt_boardings,
+            final_alt_nt.alights as final_alt_nt_alights,
             s1am.lucontext, 
             s1am.dev_type, 
             s1am.combined_potential, 
             s1am.geom 
             from computed.station_summary_2045s1_am s1am
-        
         full outer join computed.station_summary_2045nobuild_am nobuildam 
         on s1am.no = nobuildam.no        
         full outer join computed.station_summary_2045nobuild_md nobuildmd 
@@ -91,14 +88,6 @@ query2 = """
         on s1am.no = nobuildpm.no
         full outer join computed.station_summary_2045nobuild_nt nobuildnt
         on s1am.no = nobuildnt.no
-
-    
-        full outer join computed.station_summary_2045s1_md s1md 
-        on s1am.no = s1md.no
-        full outer join computed.station_summary_2045s1_pm s1pm
-        on s1am.no = s1pm.no
-        full outer join computed.station_summary_2045s1_nt s1nt
-        on s1am.no = s1nt.no
         full outer join computed.station_summary_2045s2_am s2am
         on s1am.no = s2am.no
         full outer join computed.station_summary_2045s2_md s2md
@@ -107,14 +96,22 @@ query2 = """
         on s1am.no = s2pm.no
         full outer join computed.station_summary_2045s2_nt s2nt
         on s1am.no = s2nt.no
-        full outer join computed.station_summary_2045s3a_am s3am
-        on s1am.no = s3am.no
-        full outer join computed.station_summary_2045s3a_md s3md
-        on s1am.no = s3md.no
-        full outer join computed.station_summary_2045s3a_pm s3pm
-        on s1am.no = s3pm.no
-        full outer join computed.station_summary_2045s3a_nt s3nt
-        on s1am.no = s3nt.no
+        full outer join computed.station_summary_2045final_baseline_am final_baseline_am
+        on s1am.no = final_baseline_am.no
+        full outer join computed.station_summary_2045final_baseline_md final_baseline_md
+        on s1am.no = final_baseline_md.no
+        full outer join computed.station_summary_2045final_baseline_pm final_baseline_pm
+        on s1am.no = final_baseline_pm.no
+        full outer join computed.station_summary_2045final_baseline_nt final_baseline_nt
+        on s1am.no = final_baseline_nt.no
+        full outer join computed.station_summary_2045final_alt_am final_alt_am
+        on s1am.no = final_alt_am.no
+        full outer join computed.station_summary_2045final_alt_md final_alt_md
+        on s1am.no = final_alt_md.no
+        full outer join computed.station_summary_2045final_alt_pm final_alt_pm
+        on s1am.no = final_alt_pm.no
+        full outer join computed.station_summary_2045final_alt_nt final_alt_nt
+        on s1am.no = final_alt_nt.no
         order by name);
 """
 
